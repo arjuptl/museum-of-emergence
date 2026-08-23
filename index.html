@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Museum of Emergence</title>
+<meta name="description" content="A living museum of self-organizing systems. Eight exhibits where simple local rules, run in parallel and left alone, produce order nobody designed.">
+<meta name="theme-color" content="#08090b">
+<meta property="og:title" content="The Museum of Emergence">
+<meta property="og:description" content="Eight live simulations of simple rules producing complex order. Flocking, slime mold, reaction–diffusion, Lenia, synchrony, sandpiles, dendrites, and Rule 30.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2308090b'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%23e0c589' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='14' fill='none' stroke='%23e0c589' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%23e0c589'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ══════════════════════ ATRIUM ══════════════════════ -->
+<main id="atrium" class="view">
+
+  <section class="hero">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-veil" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <p class="kicker">Permanent Collection &nbsp;·&nbsp; Open Always &nbsp;·&nbsp; Admission Free</p>
+      <h1 class="hero-title">The Museum<br><em>of</em> Emergence</h1>
+      <p class="hero-sub">Eight rooms. Eight rules. Not one of them knows what it is building.</p>
+      <a class="hero-cue" href="#gallery" aria-label="Enter the gallery">
+        <span>Enter</span>
+        <svg viewBox="0 0 24 40" width="16" height="26" aria-hidden="true"><path d="M12 2 V32 M4 24 L12 34 L20 24" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+      </a>
+    </div>
+    <div class="hero-credit" id="hero-credit"></div>
+  </section>
+
+  <section class="wall-text">
+    <div class="wall-rule" aria-hidden="true"></div>
+    <div class="wall-body">
+      <p class="wall-lead">A bird has no idea what a flock is.</p>
+      <p>It tracks perhaps seven neighbours. It keeps its distance, matches their heading, drifts toward their centre. That is the whole of its ambition. And yet a thousand of them turn over a field at dusk like a single sheet of dark water, and we reach for the word <em>choreography</em> — as though someone had written it down.</p>
+      <p>Nobody wrote it down. This is the quiet scandal at the centre of complexity science: that <strong>structure does not require an author</strong>. Give simple parts simple rules, let them act locally and all at once, and organisation appears at a scale none of the parts can perceive. Slime moulds solve mazes. Sand finds its own angle of collapse. Chemicals with no memory print the spots on a leopard.</p>
+      <p>Everything in this museum is running live in your browser as you read — no video, no recording. Each exhibit is the rule itself, executing. You may reach into any of them.</p>
+      <p class="wall-sign">— The Curator</p>
+    </div>
+  </section>
+
+  <section id="gallery" class="gallery">
+    <header class="gallery-head">
+      <h2>The Collection</h2>
+      <div class="gallery-tools">
+        <button id="wander-btn" class="ghost-btn" title="Auto-tour the collection">Wander&nbsp;the&nbsp;halls</button>
+      </div>
+    </header>
+    <div id="gallery-grid" class="grid"></div>
+  </section>
+
+  <footer class="colophon">
+    <div class="colo-col">
+      <h3>Colophon</h3>
+      <p>Every exhibit is an original implementation of a published model, computed in real time — Canvas 2D for the agent systems, WebGL2 fragment shaders for the field systems. No libraries, no build step, no video.</p>
+    </div>
+    <div class="colo-col">
+      <h3>Provenance</h3>
+      <ul class="refs" id="refs"></ul>
+    </div>
+    <div class="colo-col">
+      <h3>Visiting</h3>
+      <p><kbd>←</kbd> <kbd>→</kbd> move between rooms · <kbd>Space</kbd> hold still · <kbd>R</kbd> begin again · <kbd>H</kbd> hide the placard · <kbd>Esc</kbd> return to the atrium.</p>
+      <p class="colo-meta">Built by <a href="https://github.com/arjuptl">arjuptl</a> · <a href="https://github.com/arjuptl/museum-of-emergence">source</a></p>
+    </div>
+  </footer>
+</main>
+
+<!-- ══════════════════════ EXHIBIT ══════════════════════ -->
+<section id="exhibit" class="view" hidden>
+  <div id="stage" class="stage"></div>
+  <div class="stage-vignette" aria-hidden="true"></div>
+
+  <nav class="topbar">
+    <a href="#" class="tb-back" id="tb-back" aria-label="Back to atrium">
+      <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M15 4 L7 12 L15 20" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+      <span>Atrium</span>
+    </a>
+    <div class="tb-mid"><span id="tb-room"></span></div>
+    <div class="tb-nav">
+      <button id="prev-btn" aria-label="Previous exhibit">‹</button>
+      <span id="tb-index" class="tb-index"></span>
+      <button id="next-btn" aria-label="Next exhibit">›</button>
+    </div>
+  </nav>
+
+  <aside class="placard" id="placard">
+    <button class="placard-toggle" id="placard-toggle" aria-label="Hide placard" title="Hide placard (H)">
+      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M6 9 L12 15 L18 9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+    </button>
+
+    <div class="placard-scroll">
+      <p class="p-num" id="p-num"></p>
+      <h2 class="p-title" id="p-title"></h2>
+      <p class="p-attr" id="p-attr"></p>
+      <div class="p-hair" aria-hidden="true"></div>
+      <p class="p-text" id="p-text"></p>
+
+      <details class="p-rule" id="p-rule-wrap">
+        <summary>The rule, exactly</summary>
+        <pre class="p-code" id="p-code"></pre>
+      </details>
+
+      <div class="p-controls" id="p-controls"></div>
+
+      <div class="p-actions">
+        <button id="act-play" class="act" title="Pause / resume (Space)"><span id="act-play-label">Pause</span></button>
+        <button id="act-reset" class="act" title="Restart (R)">Restart</button>
+        <button id="act-shuffle" class="act" title="Randomise the parameters">Shuffle</button>
+        <button id="act-shot" class="act" title="Save a still image">Save PNG</button>
+      </div>
+
+      <p class="p-hint" id="p-hint"></p>
+      <p class="p-fps"><span id="p-fps-val">—</span> fps · <span id="p-count"></span></p>
+    </div>
+  </aside>
+
+  <div class="wander-bar" id="wander-bar" hidden><div class="wander-fill" id="wander-fill"></div></div>
+</section>
+
+<div id="boot" class="boot"><div class="boot-ring"></div><p>Warming the exhibits…</p></div>
+
+<script type="module" src="js/main.js"></script>
+<noscript><p style="padding:4rem;font-family:serif;color:#e8e4dc">This museum is made of running code. Please enable JavaScript.</p></noscript>
+</body>
+</html>
