@@ -52,8 +52,12 @@ check "no sendBeacon"                 'sendBeacon'
 check "no EventSource"                'new[[:space:]]+EventSource'
 
 # ── 3. no third-party origins ─────────────────────────────────────────
+# schema.org and creativecommons.org appear only as identifiers inside
+# <script type="application/ld+json"> — a JSON-LD @context and a licence id.
+# Neither is ever fetched by a browser, and default-src 'none' would block it
+# if one tried. w3.org is the SVG namespace, likewise never requested.
 THIRD=$(grep -noEI 'https?://[a-zA-Z0-9.-]+' $SRC 2>/dev/null \
-        | grep -vE '(github\.com|arjuptl\.github\.io|www\.w3\.org|sitemaps\.org|localhost)' || true)
+        | grep -vE '(github\.com|arjuptl\.github\.io|www\.w3\.org|sitemaps\.org|localhost|schema\.org|creativecommons\.org)' || true)
 if [ -n "$THIRD" ]; then
   printf '%s  ✗ %-46s%s\n' "$RED" "no third-party origins" "$OFF"; fail=1
   printf '%s' "$DIM"; printf '%s\n' "$THIRD" | sed 's/^/      /' | head -12; printf '%s' "$OFF"
