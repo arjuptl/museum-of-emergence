@@ -125,9 +125,11 @@ and run it downward. Forever.`,
       const n = Math.round(P.rows);
 
       if (triangle && filled >= GH){
-        // Finished plate. Hold it long enough to be read, then run it again.
-        if (++hold > 300) build();
+        // The plate is full. It stays full. The museum does not clear its own
+        // walls — a new run begins only when you ask for one (Restart, or R).
+        if (hold++ > 2) return;        // one last paint, then leave it alone
       } else {
+        hold = 0;
         for (let i = 0; i < n; i++) advance();
       }
 
@@ -171,7 +173,7 @@ and run it downward. Forever.`,
       ctx.fillStyle = 'rgba(233,229,221,0.34)';
       ctx.font = `${9 * dpr}px "IBM Plex Mono", monospace`;
       ctx.fillText(Math.round(P.view) === 0 && filled >= GH
-                     ? 'PLATE FULL' : 'GEN ' + generation.toLocaleString(),
+                     ? 'PLATE FULL · R FOR A NEW RUN' : 'GEN ' + generation.toLocaleString(),
                    bx + bw - padX, by + padY + 1.5 * dpr);
       ctx.textAlign = 'left';
 

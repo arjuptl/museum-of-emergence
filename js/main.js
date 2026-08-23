@@ -501,7 +501,8 @@ globalThis.museum = {
   exhibits: () => EXHIBITS.map((e, i) => ({
     index: i, id: e.id, room: ROMAN[i], title: e.title, subtitle: e.subtitle,
     attribution: e.attr, renderer: e.gl ? 'webgl2' : 'canvas2d',
-    summary: e.desc, rule: e.code, reference: e.ref,
+    accent: e.accent, summary: e.desc, essay: e.text, rule: e.code,
+    hint: e.hint, reference: e.ref,
     parameters: e.params.map(p => p.options
       ? {key:p.k, label:p.label, type:'enum', options:p.options, default:p.val}
       : {key:p.k, label:p.label, type:'number', min:p.min, max:p.max, step:p.step, default:p.val})
@@ -515,6 +516,13 @@ globalThis.museum = {
   get: k => Stage.inst?.get(k),
   set: (k, v) => { Stage.apply(k, v); return Stage.inst?.get(k); },
   reset: () => Stage.inst?.reset(),
+
+  /** Reach into the exhibit the way a visitor's finger does.
+      x and y are 0..1 across the canvas, y downward. */
+  pointer: (x, y, down = true, shift = false) => {
+    Stage.inst?.pointer(x, y, down, shift);
+    return museum.state().readout;
+  },
   shuffle: () => Stage.shuffle(),
 
   /** Advance the open exhibit by n frames regardless of tab visibility.
