@@ -82,8 +82,13 @@ done
   printf '%s  ✓ %-46s%s\n' "$GRN" "no dependency machinery" "$OFF"
 
 # ── 6. CSP present on every HTML page ─────────────────────────────────
+# Search-engine ownership tokens (google*.html, BingSiteAuth.xml, yandex_*.html)
+# must be served byte-for-byte as the engine issued them — adding a CSP meta tag
+# would change the file and break verification. They contain no markup and no
+# script, so there is nothing for a policy to protect.
 missing=""
-for f in $(find . -name '*.html' -not -path './.git/*' -not -path './_backups/*'); do
+for f in $(find . -name '*.html' -not -path './.git/*' -not -path './_backups/*' \
+             -not -name 'google*.html' -not -name 'yandex_*.html'); do
   grep -q 'Content-Security-Policy' "$f" || missing="$missing $f"
 done
 if [ -n "$missing" ]; then
@@ -97,6 +102,7 @@ BIN=$(find . -type f -not -path './.git/*' -not -path './_backups/*' \
         -not -name '*.js' -not -name '*.html' -not -name '*.css' -not -name '*.md' \
         -not -name '*.txt' -not -name '*.xml' -not -name '*.yml' -not -name '*.sh' \
         -not -name '.nojekyll' -not -name '.gitignore' -not -name 'LICENSE' \
+        -not -name 'google*.html' -not -name 'BingSiteAuth.xml' \
         -not -name '*.woff2' -not -name 'SHA256SUMS' || true)
 if [ -n "$BIN" ]; then
   printf '%s  ! %-46s%s\n' "$YEL" "unexpected non-source files" "$OFF"
