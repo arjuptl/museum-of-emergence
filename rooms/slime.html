@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Slime — Physarum transport networks · The Museum of Emergence</title>
+<meta name="description" content="A quarter-million particles, three sensors each, following a scent they secrete themselves. They rediscover the Tokyo rail network.">
+<link rel="canonical" href="https://arjuptl.github.io/museum-of-emergence/rooms/slime.html">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#08090b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Slime — Physarum transport networks">
+<meta property="og:description" content="A quarter-million particles, three sensors each, following a scent they secrete themselves. They rediscover the Tokyo rail network.">
+<meta property="og:url" content="https://arjuptl.github.io/museum-of-emergence/rooms/slime.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2308090b'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%23e0c589' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='14' fill='none' stroke='%23e0c589' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%23e0c589'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/fonts.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/page.css">
+<link rel="stylesheet" href="../css/room.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "Slime — Physarum transport networks", "headline": "Room II: Slime", "description": "A quarter-million particles, three sensors each, following a scent they secrete themselves. They rediscover the Tokyo rail network.", "url": "https://arjuptl.github.io/museum-of-emergence/rooms/slime.html", "inLanguage": "en", "isPartOf": {"@type": "CollectionPage", "name": "The Museum of Emergence", "url": "https://arjuptl.github.io/museum-of-emergence/"}, "author": {"@type": "Person", "name": "arjuptl", "url": "https://github.com/arjuptl"}, "license": "https://creativecommons.org/licenses/by/4.0/", "about": {"@type": "Thing", "name": "Physarum transport networks"}, "citation": "Jones, J. (2010) Characteristics of pattern formation and evolution in approximations of Physarum transport networks. Artificial Life 16(2).", "abstract": "A true slime mould is one enormous cell with thousands of nuclei and no brain whatsoever. Put oat flakes on a map of Japan at the positions of its cities and Physarum polycephalum will grow a feeding network that a transport engineer would recognise — Tokyo's rail system, more or less, arrived at overnight without a single act of planning.Jones' 2010 model reduces the organism to almost nothing: particles that walk forward, sniff three points ahead, and turn toward whichever smells strongest, while dripping the very same attractant behind them. Positive feedback does the rest. A path used beco", "keywords": ["emergence", "complex systems", "self-organisation", "simulation", "physarum transport networks", "slime"], "learningResourceType": "interactive simulation", "isAccessibleForFree": true}</script>
+</head>
+<body data-exhibit="slime" style="--accent:#e0c589">
+<div class="grain" aria-hidden="true"></div>
+
+<nav class="doc-top">
+  <a href="../index.html"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M15 4 L7 12 L15 20" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Atrium</span></a>
+  <span class="spacer"></span>
+  <a class="rm-prev" href="flock.html" title="Flock">‹ Flock</a>
+  <a class="rm-next" href="turing.html" title="Turing">Turing ›</a>
+</nav>
+
+<header class="rm-stage-wrap">
+  <div id="room-stage" class="rm-stage"></div>
+  <div class="rm-stage-veil" aria-hidden="true"></div>
+  <div class="rm-caption">
+    <p class="rm-room">Room II &nbsp;·&nbsp; Physarum transport networks</p>
+    <h1 class="rm-title">Slime</h1>
+    <p class="rm-attr">after Jeff Jones · 2010 · and the organism itself, ~1 billion BCE</p>
+  </div>
+  <div class="rm-tools">
+    <span id="room-readout" class="rm-readout"></span>
+    <button id="room-restart" class="cta">Restart</button>
+    <a class="cta primary" href="../index.html#/slime">Open in the museum</a>
+  </div>
+</header>
+
+<main class="doc doc-body">
+<div class="doc-grid">
+
+  <section class="doc-sec">
+    <h2>The wall text</h2>
+    <div><p>A true slime mould is one enormous cell with thousands of nuclei and no brain whatsoever. Put oat flakes on a map of Japan at the positions of its cities and <em>Physarum polycephalum</em> will grow a feeding network that a transport engineer would recognise — Tokyo's rail system, more or less, arrived at overnight without a single act of planning.<br><br>Jones' 2010 model reduces the organism to almost nothing: particles that walk forward, sniff three points ahead, and turn toward whichever smells strongest, while dripping the very same attractant behind them. Positive feedback does the rest. A path used becomes a path preferred becomes a path.<br><br>The whole character of the thing lives in two angles. When the <em>turn</em> exceeds the <em>sensor spread</em>, an agent following a filament overshoots its own trail — and the network spontaneously sprouts branches. Drag it below and everything contracts into taut, minimal arcs.</p>
+    <p class="rm-hint">Drag on the culture to lead the colony. Hold ⇧ Shift to repel.</p></div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>The rule, exactly</h2>
+    <div><pre class="block">for each of 262,144 particles, every frame:
+
+    F = trail sampled  d px ahead
+    L = trail sampled  d px ahead, rotated +β
+    R = trail sampled  d px ahead, rotated −β
+
+    if F ≥ L and F ≥ R   →  keep heading
+    else if F &lt; L and F &lt; R →  turn ±α at random
+    else if L &gt; R        →  heading += α
+    else                 →  heading −= α
+
+    position += heading · step
+    deposit at position
+
+then, over the whole trail field:
+    blur 3×3, multiply by decay</pre></div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>What you can change</h2>
+    <div><div class="c-wrap"><table class="c-table">
+      <thead><tr><th>Control</th><th>Range</th><th>Default</th></tr></thead>
+      <tbody><tr><td><b>Sensor spread β</b></td><td class="c-ref">5 … 80</td><td class="c-ref">22.5</td></tr>
+<tr><td><b>Turn angle α</b></td><td class="c-ref">5 … 80</td><td class="c-ref">45</td></tr>
+<tr><td><b>Sensor reach</b></td><td class="c-ref">1 … 40</td><td class="c-ref">6</td></tr>
+<tr><td><b>Speed</b></td><td class="c-ref">0.2 … 3</td><td class="c-ref">0.9</td></tr>
+<tr><td><b>Evaporation</b></td><td class="c-ref">0.8 … 0.995</td><td class="c-ref">0.9</td></tr>
+<tr><td><b>Diffusion</b></td><td class="c-ref">0 … 1</td><td class="c-ref">0.22</td></tr>
+<tr><td><b>Exposure</b></td><td class="c-ref">0.2 … 6</td><td class="c-ref">0.6</td></tr>
+<tr><td><b>Palette</b></td><td class="c-ref">one of: Gilt, Verdigris, Cinnabar, Silver print</td><td class="c-ref">0</td></tr></tbody></table></div>
+      <p class="rm-note">Renderer: <b>WebGL2 fragment shaders</b>. Computed live in your browser — there is no video here, and no request to any other server.</p>
+    </div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>Provenance</h2>
+    <div><p class="rm-cite"><b>Jones, J.</b> (2010) Characteristics of pattern formation and evolution in approximations of Physarum transport networks. <i>Artificial Life</i> 16(2).</p>
+    <p>This is an original implementation written for this museum, not a port of
+    anyone else's code. If you find it misrepresents the paper, that is a bug —
+    please <a href="https://github.com/arjuptl/museum-of-emergence/issues">say so</a>.</p></div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>The other rooms</h2>
+    <div><div class="oth-grid"><a class="oth" href="flock.html"><span class="oth-n">Room I</span><span class="oth-t">Flock</span><span class="oth-s">Boids</span></a>
+<a class="oth" href="turing.html"><span class="oth-n">Room III</span><span class="oth-t">Turing</span><span class="oth-s">Gray–Scott reaction–diffusion</span></a>
+<a class="oth" href="lenia.html"><span class="oth-n">Room IV</span><span class="oth-t">Lenia</span><span class="oth-s">Continuous cellular automata</span></a>
+<a class="oth" href="sync.html"><span class="oth-n">Room V</span><span class="oth-t">Sync</span><span class="oth-s">Coupled phase oscillators</span></a>
+<a class="oth" href="sandpile.html"><span class="oth-n">Room VI</span><span class="oth-t">Avalanche</span><span class="oth-s">The Abelian sandpile · self-organised criticality</span></a>
+<a class="oth" href="dendrite.html"><span class="oth-n">Room VII</span><span class="oth-t">Dendrite</span><span class="oth-s">Diffusion-limited aggregation</span></a>
+<a class="oth" href="rule30.html"><span class="oth-n">Room VIII</span><span class="oth-t">Rule 30</span><span class="oth-s">Elementary cellular automata</span></a></div>
+    <p class="rm-note">The collection is unfinished on purpose. Anyone may add a
+    room — including <a href="../agents.html">visitors who are not people</a>.
+    Thirty-two models are <a href="../commissions.json">currently open</a>.</p></div>
+  </section>
+
+</div>
+</main>
+<script type="module" src="../js/room.js"></script>
+</body>
+</html>

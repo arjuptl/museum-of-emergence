@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sync — Coupled phase oscillators · The Museum of Emergence</title>
+<meta name="description" content="Fireflies with different natural rhythms, each nudging only its neighbours. Above a critical coupling, a whole riverbank flashes as one.">
+<link rel="canonical" href="https://arjuptl.github.io/museum-of-emergence/rooms/sync.html">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#08090b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sync — Coupled phase oscillators">
+<meta property="og:description" content="Fireflies with different natural rhythms, each nudging only its neighbours. Above a critical coupling, a whole riverbank flashes as one.">
+<meta property="og:url" content="https://arjuptl.github.io/museum-of-emergence/rooms/sync.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2308090b'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%23e0c589' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='14' fill='none' stroke='%23e0c589' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%23e0c589'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/fonts.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/page.css">
+<link rel="stylesheet" href="../css/room.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "Sync — Coupled phase oscillators", "headline": "Room V: Sync", "description": "Fireflies with different natural rhythms, each nudging only its neighbours. Above a critical coupling, a whole riverbank flashes as one.", "url": "https://arjuptl.github.io/museum-of-emergence/rooms/sync.html", "inLanguage": "en", "isPartOf": {"@type": "CollectionPage", "name": "The Museum of Emergence", "url": "https://arjuptl.github.io/museum-of-emergence/"}, "author": {"@type": "Person", "name": "arjuptl", "url": "https://github.com/arjuptl"}, "license": "https://creativecommons.org/licenses/by/4.0/", "about": {"@type": "Thing", "name": "Coupled phase oscillators"}, "citation": "Kuramoto, Y. (1975) Self-entrainment of a population of coupled non-linear oscillators. · Strogatz, S. (2003) Sync.", "abstract": "Along tidal rivers in Thailand and Malaysia, Pteroptyx fireflies gather in mangrove trees by the thousand and flash in unison — miles of riverbank pulsing together, for hours. Nineteenth-century naturalists reported it and were disbelieved; the effect was put down to the observer blinking.There is no conductor. Each firefly has its own natural rhythm and one simple habit: when a neighbour flashes, shift your own timing slightly toward theirs. Kuramoto showed in 1975 that this is enough — and, remarkably, that it fails completely below a critical coupling strength and works almost completely ab", "keywords": ["emergence", "complex systems", "self-organisation", "simulation", "coupled phase oscillators", "sync"], "learningResourceType": "interactive simulation", "isAccessibleForFree": true}</script>
+</head>
+<body data-exhibit="sync" style="--accent:#f0cd6d">
+<div class="grain" aria-hidden="true"></div>
+
+<nav class="doc-top">
+  <a href="../index.html"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M15 4 L7 12 L15 20" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Atrium</span></a>
+  <span class="spacer"></span>
+  <a class="rm-prev" href="lenia.html" title="Lenia">‹ Lenia</a>
+  <a class="rm-next" href="sandpile.html" title="Avalanche">Avalanche ›</a>
+</nav>
+
+<header class="rm-stage-wrap">
+  <div id="room-stage" class="rm-stage"></div>
+  <div class="rm-stage-veil" aria-hidden="true"></div>
+  <div class="rm-caption">
+    <p class="rm-room">Room V &nbsp;·&nbsp; Coupled phase oscillators</p>
+    <h1 class="rm-title">Sync</h1>
+    <p class="rm-attr">Winfree 1967 · Kuramoto 1975 · and the fireflies of the Mae Klong</p>
+  </div>
+  <div class="rm-tools">
+    <span id="room-readout" class="rm-readout"></span>
+    <button id="room-restart" class="cta">Restart</button>
+    <a class="cta primary" href="../index.html#/sync">Open in the museum</a>
+  </div>
+</header>
+
+<main class="doc doc-body">
+<div class="doc-grid">
+
+  <section class="doc-sec">
+    <h2>The wall text</h2>
+    <div><p>Along tidal rivers in Thailand and Malaysia, <em>Pteroptyx</em> fireflies gather in mangrove trees by the thousand and flash in unison — miles of riverbank pulsing together, for hours. Nineteenth-century naturalists reported it and were disbelieved; the effect was put down to the observer blinking.<br><br>There is no conductor. Each firefly has its own natural rhythm and one simple habit: when a neighbour flashes, shift your own timing slightly toward theirs. Kuramoto showed in 1975 that this is enough — and, remarkably, that it fails completely below a critical coupling strength and works almost completely above it. Synchrony arrives not gradually but as a <em>phase transition</em>, like water freezing.<br><br>The dial at the bottom is the <b>order parameter</b> — the length of the average of every oscillator's phase, as a vector on the unit circle. Zero is anarchy; one is a single organism. Drag the coupling slowly through the middle and watch where it snaps.</p>
+    <p class="rm-hint">Click to shock a patch of the swarm out of step, and watch it get pulled back in.</p></div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>The rule, exactly</h2>
+    <div><pre class="block">each oscillator i has a natural frequency ωᵢ
+drawn from a spread around the mean.
+
+  dθᵢ/dt  =  ωᵢ  +  (K / nᵢ) · Σ sin(θⱼ − θᵢ)
+                              j ∈ neighbours(i)
+
+it flashes when θ crosses 0.
+
+order parameter:   r·e^{iψ} = (1/N) Σ e^{iθⱼ}
+
+Kuramoto&#x27;s result: for all-to-all coupling there is a
+critical Kc below which r = 0 and above which r &gt; 0.
+Synchrony is a phase transition, not a gradient.</pre></div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>What you can change</h2>
+    <div><div class="c-wrap"><table class="c-table">
+      <thead><tr><th>Control</th><th>Range</th><th>Default</th></tr></thead>
+      <tbody><tr><td><b>Coupling K</b></td><td class="c-ref">0 … 14</td><td class="c-ref">3.6</td></tr>
+<tr><td><b>Frequency spread</b></td><td class="c-ref">0 … 2.2</td><td class="c-ref">0.62</td></tr>
+<tr><td><b>Hearing distance</b></td><td class="c-ref">20 … 400</td><td class="c-ref">110</td></tr>
+<tr><td><b>Population</b></td><td class="c-ref">80 … 1600</td><td class="c-ref">620</td></tr>
+<tr><td><b>Base tempo</b></td><td class="c-ref">0.2 … 4</td><td class="c-ref">1.5</td></tr>
+<tr><td><b>Flash sharpness</b></td><td class="c-ref">4 … 60</td><td class="c-ref">22</td></tr></tbody></table></div>
+      <p class="rm-note">Renderer: <b>Canvas 2D</b>. Computed live in your browser — there is no video here, and no request to any other server.</p>
+    </div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>Provenance</h2>
+    <div><p class="rm-cite"><b>Kuramoto, Y.</b> (1975) Self-entrainment of a population of coupled non-linear oscillators. · <b>Strogatz, S.</b> (2003) <i>Sync</i>.</p>
+    <p>This is an original implementation written for this museum, not a port of
+    anyone else's code. If you find it misrepresents the paper, that is a bug —
+    please <a href="https://github.com/arjuptl/museum-of-emergence/issues">say so</a>.</p></div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>The other rooms</h2>
+    <div><div class="oth-grid"><a class="oth" href="flock.html"><span class="oth-n">Room I</span><span class="oth-t">Flock</span><span class="oth-s">Boids</span></a>
+<a class="oth" href="slime.html"><span class="oth-n">Room II</span><span class="oth-t">Slime</span><span class="oth-s">Physarum transport networks</span></a>
+<a class="oth" href="turing.html"><span class="oth-n">Room III</span><span class="oth-t">Turing</span><span class="oth-s">Gray–Scott reaction–diffusion</span></a>
+<a class="oth" href="lenia.html"><span class="oth-n">Room IV</span><span class="oth-t">Lenia</span><span class="oth-s">Continuous cellular automata</span></a>
+<a class="oth" href="sandpile.html"><span class="oth-n">Room VI</span><span class="oth-t">Avalanche</span><span class="oth-s">The Abelian sandpile · self-organised criticality</span></a>
+<a class="oth" href="dendrite.html"><span class="oth-n">Room VII</span><span class="oth-t">Dendrite</span><span class="oth-s">Diffusion-limited aggregation</span></a>
+<a class="oth" href="rule30.html"><span class="oth-n">Room VIII</span><span class="oth-t">Rule 30</span><span class="oth-s">Elementary cellular automata</span></a></div>
+    <p class="rm-note">The collection is unfinished on purpose. Anyone may add a
+    room — including <a href="../agents.html">visitors who are not people</a>.
+    Thirty-two models are <a href="../commissions.json">currently open</a>.</p></div>
+  </section>
+
+</div>
+</main>
+<script type="module" src="../js/room.js"></script>
+</body>
+</html>

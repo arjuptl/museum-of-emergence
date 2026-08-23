@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rule 30 — Elementary cellular automata · The Museum of Emergence</title>
+<meta name="description" content="One row of cells. Eight instructions, expressible in eight bits. From a single black square: randomness no statistical test can distinguish from noise.">
+<link rel="canonical" href="https://arjuptl.github.io/museum-of-emergence/rooms/rule30.html">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#08090b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rule 30 — Elementary cellular automata">
+<meta property="og:description" content="One row of cells. Eight instructions, expressible in eight bits. From a single black square: randomness no statistical test can distinguish from noise.">
+<meta property="og:url" content="https://arjuptl.github.io/museum-of-emergence/rooms/rule30.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2308090b'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%23e0c589' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='14' fill='none' stroke='%23e0c589' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%23e0c589'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/fonts.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/page.css">
+<link rel="stylesheet" href="../css/room.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "Rule 30 — Elementary cellular automata", "headline": "Room VIII: Rule 30", "description": "One row of cells. Eight instructions, expressible in eight bits. From a single black square: randomness no statistical test can distinguish from noise.", "url": "https://arjuptl.github.io/museum-of-emergence/rooms/rule30.html", "inLanguage": "en", "isPartOf": {"@type": "CollectionPage", "name": "The Museum of Emergence", "url": "https://arjuptl.github.io/museum-of-emergence/"}, "author": {"@type": "Person", "name": "arjuptl", "url": "https://github.com/arjuptl"}, "license": "https://creativecommons.org/licenses/by/4.0/", "about": {"@type": "Thing", "name": "Elementary cellular automata"}, "citation": "Wolfram, S. (1983) Statistical mechanics of cellular automata. Rev. Mod. Phys. 55. · Cook, M. (2004) Universality in elementary cellular automata.", "abstract": "This is very nearly the simplest program that can exist. A row of cells, each black or white. To make the next row, look at each cell together with its two neighbours — three cells, so eight possible situations — and consult a table that says black or white for each. The table is eight bits, so there are exactly 256 possible universes. Wolfram numbered them.Most are boring: they die, or fill in, or repeat. A handful are not. Rule 90 draws the Sierpiński triangle. Rule 110 was proved in 2004 to be Turing complete — that row of cells can, in principle, run any computation that any computer can r", "keywords": ["emergence", "complex systems", "self-organisation", "simulation", "elementary cellular automata", "rule 30"], "learningResourceType": "interactive simulation", "isAccessibleForFree": true}</script>
+</head>
+<body data-exhibit="rule30" style="--accent:#e6ded0">
+<div class="grain" aria-hidden="true"></div>
+
+<nav class="doc-top">
+  <a href="../index.html"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M15 4 L7 12 L15 20" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Atrium</span></a>
+  <span class="spacer"></span>
+  <a class="rm-prev" href="dendrite.html" title="Dendrite">‹ Dendrite</a>
+  <a class="rm-next" href="flock.html" title="Flock">Flock ›</a>
+</nav>
+
+<header class="rm-stage-wrap">
+  <div id="room-stage" class="rm-stage"></div>
+  <div class="rm-stage-veil" aria-hidden="true"></div>
+  <div class="rm-caption">
+    <p class="rm-room">Room VIII &nbsp;·&nbsp; Elementary cellular automata</p>
+    <h1 class="rm-title">Rule 30</h1>
+    <p class="rm-attr">Stephen Wolfram · 1983</p>
+  </div>
+  <div class="rm-tools">
+    <span id="room-readout" class="rm-readout"></span>
+    <button id="room-restart" class="cta">Restart</button>
+    <a class="cta primary" href="../index.html#/rule30">Open in the museum</a>
+  </div>
+</header>
+
+<main class="doc doc-body">
+<div class="doc-grid">
+
+  <section class="doc-sec">
+    <h2>The wall text</h2>
+    <div><p>This is very nearly the simplest program that can exist. A row of cells, each black or white. To make the next row, look at each cell together with its two neighbours — three cells, so eight possible situations — and consult a table that says black or white for each. The table is eight bits, so there are exactly 256 possible universes. Wolfram numbered them.<br><br>Most are boring: they die, or fill in, or repeat. A handful are not. <b>Rule 90</b> draws the Sierpiński triangle. <b>Rule 110</b> was proved in 2004 to be <em>Turing complete</em> — that row of cells can, in principle, run any computation that any computer can run.<br><br>And <b>Rule 30</b>, started from a single black cell, produces a left side that is orderly and a right side that is — as far as anyone has been able to prove in forty years — genuinely, irreducibly chaotic. The centre column passes every practical test for randomness. Mathematica used it as its random number generator. There is a standing prize, still unclaimed, for showing that column is aperiodic.<br><br>The point is not that the output is complicated. It is that <em>there is no shortcut to it</em>. To know row one million you must compute row one million. Wolfram calls this computational irreducibility, and if it is as common as he thinks, it is the reason so much of the world has to be lived rather than predicted.</p>
+    <p class="rm-hint">Type any rule from 0 to 255. Most are dull. Some are universes.</p></div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>The rule, exactly</h2>
+    <div><pre class="block">state: one row of cells, each 0 or 1.
+
+new cell = TABLE[ left·4 + centre·2 + right ]
+
+where TABLE is the 8 bits of the rule number.
+
+Rule 30 = 00011110₂ , so:
+
+   111→0   110→0   101→0   100→1
+   011→1   010→1   001→1   000→0
+
+start from a single 1 in an ocean of 0s
+and run it downward. Forever.</pre></div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>What you can change</h2>
+    <div><div class="c-wrap"><table class="c-table">
+      <thead><tr><th>Control</th><th>Range</th><th>Default</th></tr></thead>
+      <tbody><tr><td><b>Notable rules</b></td><td class="c-ref">one of: 30 — chaos from one cell, 110 — Turing complete, 90 — Sierpiński triangle, 150 — nested, self-similar, 54 — gliders on a lattice, 22 — fractal, sparse, 73 — walled compartments, 105 — restless order, 45 — chaotic, biased, 126 — Sierpiński, inverted</td><td class="c-ref">0</td></tr>
+<tr><td><b>Rule number</b></td><td class="c-ref">0 … 255</td><td class="c-ref">30</td></tr>
+<tr><td><b>View</b></td><td class="c-ref">one of: Growing triangle, Endless scroll</td><td class="c-ref">0</td></tr>
+<tr><td><b>Cell size</b></td><td class="c-ref">1 … 8</td><td class="c-ref">3</td></tr>
+<tr><td><b>Rows / frame</b></td><td class="c-ref">1 … 12</td><td class="c-ref">2</td></tr>
+<tr><td><b>Initial row</b></td><td class="c-ref">one of: A single cell, Random noise</td><td class="c-ref">0</td></tr></tbody></table></div>
+      <p class="rm-note">Renderer: <b>Canvas 2D</b>. Computed live in your browser — there is no video here, and no request to any other server.</p>
+    </div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>Provenance</h2>
+    <div><p class="rm-cite"><b>Wolfram, S.</b> (1983) Statistical mechanics of cellular automata. <i>Rev. Mod. Phys.</i> 55. · <b>Cook, M.</b> (2004) Universality in elementary cellular automata.</p>
+    <p>This is an original implementation written for this museum, not a port of
+    anyone else's code. If you find it misrepresents the paper, that is a bug —
+    please <a href="https://github.com/arjuptl/museum-of-emergence/issues">say so</a>.</p></div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>The other rooms</h2>
+    <div><div class="oth-grid"><a class="oth" href="flock.html"><span class="oth-n">Room I</span><span class="oth-t">Flock</span><span class="oth-s">Boids</span></a>
+<a class="oth" href="slime.html"><span class="oth-n">Room II</span><span class="oth-t">Slime</span><span class="oth-s">Physarum transport networks</span></a>
+<a class="oth" href="turing.html"><span class="oth-n">Room III</span><span class="oth-t">Turing</span><span class="oth-s">Gray–Scott reaction–diffusion</span></a>
+<a class="oth" href="lenia.html"><span class="oth-n">Room IV</span><span class="oth-t">Lenia</span><span class="oth-s">Continuous cellular automata</span></a>
+<a class="oth" href="sync.html"><span class="oth-n">Room V</span><span class="oth-t">Sync</span><span class="oth-s">Coupled phase oscillators</span></a>
+<a class="oth" href="sandpile.html"><span class="oth-n">Room VI</span><span class="oth-t">Avalanche</span><span class="oth-s">The Abelian sandpile · self-organised criticality</span></a>
+<a class="oth" href="dendrite.html"><span class="oth-n">Room VII</span><span class="oth-t">Dendrite</span><span class="oth-s">Diffusion-limited aggregation</span></a></div>
+    <p class="rm-note">The collection is unfinished on purpose. Anyone may add a
+    room — including <a href="../agents.html">visitors who are not people</a>.
+    Thirty-two models are <a href="../commissions.json">currently open</a>.</p></div>
+  </section>
+
+</div>
+</main>
+<script type="module" src="../js/room.js"></script>
+</body>
+</html>

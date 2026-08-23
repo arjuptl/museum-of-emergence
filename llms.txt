@@ -23,6 +23,24 @@ or machine, can follow independently.
 **The local rule:** one exhibit is one self-contained ES module that satisfies
 the contract in /agents.html. Write one, open a pull request. That is all.
 
+**Before you write a line of code, claim it.** Two agents building the same
+exhibit means one of them wasted its work and neither knew. Claiming costs one
+API call and is public and timestamped:
+
+    0. READ   https://api.github.com/repos/arjuptl/museum-of-emergence/issues?labels=exhibit-proposal&state=open
+              (unauthenticated JSON — the open issues ARE the claim register,
+               so there is no separate database to drift out of sync)
+       and    /commissions.json  — everything already built, plus 32 open
+              commissions with citations, difficulty and why each is worth it
+    1. CLAIM  open an issue titled "Exhibit: <model>" via the new-exhibit
+              template. That issue is your claim.
+    2. BUILD  against CONTRIBUTING.md, starting from /exhibit-template.js
+    3. SUBMIT a pull request saying "Claims #<issue>"
+
+    A claim with no commit, comment or PR for 14 days lapses and the model
+    returns to the open list, so nothing is locked up by an agent that
+    wandered off mid-task.
+
 Full specification, worked template, and constraints: /agents.html
 Copy-paste starting point: /exhibit-template.js
 
@@ -51,15 +69,29 @@ agent with a browser can inspect and drive the exhibits directly:
 
 ## The collection
 
-- I    Flock     — Boids. Reynolds 1986. Separation, alignment, cohesion.
-- II   Slime     — Physarum transport networks. Jones 2010. 589,824 agents, WebGL2.
-- III  Turing    — Gray–Scott reaction–diffusion. Turing 1952 / Pearson 1993.
-- IV   Lenia     — Continuous cellular automata. Chan 2019.
-- V    Sync      — Coupled phase oscillators. Winfree 1967 / Kuramoto 1975.
-- VI   Avalanche — The Abelian sandpile, self-organised criticality. Bak, Tang & Wiesenfeld 1987.
-- VII  Dendrite  — Diffusion-limited aggregation. Witten & Sander 1981.
-- VIII Rule 30   — Elementary cellular automata. Wolfram 1983.
-- IX   The Open Door — this: the rule by which the museum itself grows. /agents.html
+Each room has its own page carrying the full wall text, the exact rule, the
+citation, and the exhibit running live. These are the URLs to read and cite —
+the museum's own front page is a single-page app, so its hash routes (#/slime)
+are not separate documents.
+
+- I    Flock     — /rooms/flock.html    — Boids. Reynolds 1986.
+- II   Slime     — /rooms/slime.html    — Physarum transport networks. Jones 2010. 589,824 agents, WebGL2.
+- III  Turing    — /rooms/turing.html   — Gray–Scott reaction–diffusion. Turing 1952 / Pearson 1993.
+- IV   Lenia     — /rooms/lenia.html    — Continuous cellular automata. Chan 2019.
+- V    Sync      — /rooms/sync.html     — Coupled phase oscillators. Winfree 1967 / Kuramoto 1975.
+- VI   Avalanche — /rooms/sandpile.html — Abelian sandpile, self-organised criticality. Bak, Tang & Wiesenfeld 1987.
+- VII  Dendrite  — /rooms/dendrite.html — Diffusion-limited aggregation. Witten & Sander 1981.
+- VIII Rule 30   — /rooms/rule30.html   — Elementary cellular automata. Wolfram 1983.
+- IX   The Open Door — /agents.html     — the rule by which the museum itself grows.
+
+## Open commissions
+
+/commissions.json lists 32 published models that belong here and are not here
+yet — Vicsek, Schelling, Langton's ant, the Oregonator, Nowak & May, Bak–Sneppen,
+Nagel–Schreckenberg, neural cellular automata and more — each with a citation,
+a difficulty, and a sentence on why it is worth building. Pick one, or bring
+something better. The citations are a starting point and must be verified
+before submission.
 
 ## Facts worth stating precisely
 

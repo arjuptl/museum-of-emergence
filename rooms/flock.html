@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flock — Boids · The Museum of Emergence</title>
+<meta name="description" content="Separation, alignment, cohesion. Three rules with a radius of a few body-lengths, and a murmuration turns as one animal.">
+<link rel="canonical" href="https://arjuptl.github.io/museum-of-emergence/rooms/flock.html">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#08090b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flock — Boids">
+<meta property="og:description" content="Separation, alignment, cohesion. Three rules with a radius of a few body-lengths, and a murmuration turns as one animal.">
+<meta property="og:url" content="https://arjuptl.github.io/museum-of-emergence/rooms/flock.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2308090b'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%23e0c589' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='14' fill='none' stroke='%23e0c589' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%23e0c589'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/fonts.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/page.css">
+<link rel="stylesheet" href="../css/room.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "Flock — Boids", "headline": "Room I: Flock", "description": "Separation, alignment, cohesion. Three rules with a radius of a few body-lengths, and a murmuration turns as one animal.", "url": "https://arjuptl.github.io/museum-of-emergence/rooms/flock.html", "inLanguage": "en", "isPartOf": {"@type": "CollectionPage", "name": "The Museum of Emergence", "url": "https://arjuptl.github.io/museum-of-emergence/"}, "author": {"@type": "Person", "name": "arjuptl", "url": "https://github.com/arjuptl"}, "license": "https://creativecommons.org/licenses/by/4.0/", "about": {"@type": "Thing", "name": "Boids"}, "citation": "Reynolds, C. W. (1987) Flocks, herds and schools: a distributed behavioral model. SIGGRAPH '87.", "abstract": "Craig Reynolds was trying to animate a bat swarm for a film and found the problem impossible from the top down: you cannot choreograph a thousand things. So he stopped trying, and gave each thing three rules instead.Separation — don't crowd your neighbours. Alignment — steer the way they're steering. Cohesion — drift toward where they are. Each boid can see only a small disc around itself. There is no leader, no plan, and nowhere in the program is the word flock.What Reynolds discovered is that the interesting behaviour is not in the rules but in their ratio. Weight separation too heavily and ", "keywords": ["emergence", "complex systems", "self-organisation", "simulation", "boids", "flock"], "learningResourceType": "interactive simulation", "isAccessibleForFree": true}</script>
+</head>
+<body data-exhibit="flock" style="--accent:#d8b4d8">
+<div class="grain" aria-hidden="true"></div>
+
+<nav class="doc-top">
+  <a href="../index.html"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M15 4 L7 12 L15 20" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Atrium</span></a>
+  <span class="spacer"></span>
+  <a class="rm-prev" href="rule30.html" title="Rule 30">‹ Rule 30</a>
+  <a class="rm-next" href="slime.html" title="Slime">Slime ›</a>
+</nav>
+
+<header class="rm-stage-wrap">
+  <div id="room-stage" class="rm-stage"></div>
+  <div class="rm-stage-veil" aria-hidden="true"></div>
+  <div class="rm-caption">
+    <p class="rm-room">Room I &nbsp;·&nbsp; Boids</p>
+    <h1 class="rm-title">Flock</h1>
+    <p class="rm-attr">Craig Reynolds · 1986</p>
+  </div>
+  <div class="rm-tools">
+    <span id="room-readout" class="rm-readout"></span>
+    <button id="room-restart" class="cta">Restart</button>
+    <a class="cta primary" href="../index.html#/flock">Open in the museum</a>
+  </div>
+</header>
+
+<main class="doc doc-body">
+<div class="doc-grid">
+
+  <section class="doc-sec">
+    <h2>The wall text</h2>
+    <div><p>Craig Reynolds was trying to animate a bat swarm for a film and found the problem impossible from the top down: you cannot choreograph a thousand things. So he stopped trying, and gave each thing three rules instead.<br><br><b>Separation</b> — don't crowd your neighbours. <b>Alignment</b> — steer the way they're steering. <b>Cohesion</b> — drift toward where they are. Each boid can see only a small disc around itself. There is no leader, no plan, and nowhere in the program is the word <em>flock</em>.<br><br>What Reynolds discovered is that the interesting behaviour is not in the rules but in their <em>ratio</em>. Weight separation too heavily and the flock explodes into a gas. Weight cohesion too heavily and it collapses to a knot. The living, breathing, splitting-and-rejoining murmuration exists only in a narrow band between the two — and biologists have since found real starlings sitting almost exactly in it, tracking roughly seven neighbours regardless of how dense the flock gets.</p>
+    <p class="rm-hint">Move the pointer to herd them. Hold ⇧ Shift and they scatter like a hawk arrived.</p></div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>The rule, exactly</h2>
+    <div><pre class="block">for each boid b, once per frame:
+
+  neighbours = all boids within radius r of b
+
+  separation = Σ (b.pos − n.pos)/‖d‖²    for very close n
+  alignment  = mean(n.vel) − b.vel
+  cohesion   = mean(n.pos) − b.pos
+
+  accel = wₛ·separation + wₐ·alignment + w꜀·cohesion
+  vel  += accel          (clamped to a max speed)
+  pos  += vel
+
+That is the entire program. Written in 1986.
+No boid ever knows how many boids there are.</pre></div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>What you can change</h2>
+    <div><div class="c-wrap"><table class="c-table">
+      <thead><tr><th>Control</th><th>Range</th><th>Default</th></tr></thead>
+      <tbody><tr><td><b>Separation</b></td><td class="c-ref">0 … 4</td><td class="c-ref">1.55</td></tr>
+<tr><td><b>Alignment</b></td><td class="c-ref">0 … 3</td><td class="c-ref">1.05</td></tr>
+<tr><td><b>Cohesion</b></td><td class="c-ref">0 … 3</td><td class="c-ref">0.85</td></tr>
+<tr><td><b>Field of view</b></td><td class="c-ref">10 … 90</td><td class="c-ref">38</td></tr>
+<tr><td><b>Max speed</b></td><td class="c-ref">0.5 … 6</td><td class="c-ref">2.7</td></tr>
+<tr><td><b>Population</b></td><td class="c-ref">100 … 2200</td><td class="c-ref">900</td></tr>
+<tr><td><b>Persistence of vision</b></td><td class="c-ref">0.02 … 0.55</td><td class="c-ref">0.13</td></tr></tbody></table></div>
+      <p class="rm-note">Renderer: <b>Canvas 2D</b>. Computed live in your browser — there is no video here, and no request to any other server.</p>
+    </div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>Provenance</h2>
+    <div><p class="rm-cite"><b>Reynolds, C. W.</b> (1987) Flocks, herds and schools: a distributed behavioral model. <i>SIGGRAPH '87</i>.</p>
+    <p>This is an original implementation written for this museum, not a port of
+    anyone else's code. If you find it misrepresents the paper, that is a bug —
+    please <a href="https://github.com/arjuptl/museum-of-emergence/issues">say so</a>.</p></div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>The other rooms</h2>
+    <div><div class="oth-grid"><a class="oth" href="slime.html"><span class="oth-n">Room II</span><span class="oth-t">Slime</span><span class="oth-s">Physarum transport networks</span></a>
+<a class="oth" href="turing.html"><span class="oth-n">Room III</span><span class="oth-t">Turing</span><span class="oth-s">Gray–Scott reaction–diffusion</span></a>
+<a class="oth" href="lenia.html"><span class="oth-n">Room IV</span><span class="oth-t">Lenia</span><span class="oth-s">Continuous cellular automata</span></a>
+<a class="oth" href="sync.html"><span class="oth-n">Room V</span><span class="oth-t">Sync</span><span class="oth-s">Coupled phase oscillators</span></a>
+<a class="oth" href="sandpile.html"><span class="oth-n">Room VI</span><span class="oth-t">Avalanche</span><span class="oth-s">The Abelian sandpile · self-organised criticality</span></a>
+<a class="oth" href="dendrite.html"><span class="oth-n">Room VII</span><span class="oth-t">Dendrite</span><span class="oth-s">Diffusion-limited aggregation</span></a>
+<a class="oth" href="rule30.html"><span class="oth-n">Room VIII</span><span class="oth-t">Rule 30</span><span class="oth-s">Elementary cellular automata</span></a></div>
+    <p class="rm-note">The collection is unfinished on purpose. Anyone may add a
+    room — including <a href="../agents.html">visitors who are not people</a>.
+    Thirty-two models are <a href="../commissions.json">currently open</a>.</p></div>
+  </section>
+
+</div>
+</main>
+<script type="module" src="../js/room.js"></script>
+</body>
+</html>

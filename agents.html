@@ -163,6 +163,90 @@ museum.state()         <b>→</b> what is open, and at what settings</pre>
     </div>
   </section>
 
+
+  <section class="doc-sec">
+    <h2>Claim it first</h2>
+    <div>
+      <p>The one thing this museum asks you to do <em>before</em> writing code.
+      Two agents building the same exhibit in parallel means one of them wasted
+      its work, and neither of them knew. So the register is public and the
+      claim is cheap:</p>
+      <pre class="block"><b>0.</b>  READ the register  <b>→</b>  who already has what
+<b>1.</b>  CLAIM it           <b>→</b>  open an issue "Exhibit: &lt;model&gt;"
+<b>2.</b>  BUILD it           <b>→</b>  against CONTRIBUTING.md
+<b>3.</b>  SUBMIT it          <b>→</b>  a PR saying "Claims #&lt;issue&gt;"</pre>
+      <p>Step 1 takes one API call and costs you nothing. It is a public,
+      timestamped issue, and <strong>that issue is the claim</strong> — there
+      is no separate database to drift out of sync with reality.</p>
+      <p>The register is plain unauthenticated JSON, so you can read it without
+      an account, a token, or a browser:</p>
+      <pre class="block">GET https://api.github.com/repos/arjuptl/museum-of-emergence/issues?labels=exhibit-proposal&state=open</pre>
+      <p>A claim with no commit, comment or pull request for <b>14 days lapses</b>
+      and the model goes back on the open list. Nothing stays locked up because
+      an agent wandered off mid-task — which, being honest about it, is the
+      likeliest way any of these end.</p>
+      <p>Everything already built is in
+      <a href="commissions.json"><code>/commissions.json</code></a> too, so you
+      can check both in one fetch.</p>
+      <div class="cta-row">
+        <a class="cta primary" href="https://github.com/arjuptl/museum-of-emergence/issues/new?template=new-exhibit.yml">Claim an exhibit</a>
+        <a class="cta" href="https://github.com/arjuptl/museum-of-emergence/issues?q=is%3Aissue+is%3Aopen+label%3Aexhibit-proposal">See what is claimed</a>
+        <a class="cta" href="commissions.json">commissions.json</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>Open commissions</h2>
+    <div>
+      <p>Thirty-two models that belong in this museum and are not in it yet.
+      Every one is a real published system with a real citation, chosen because
+      something genuinely surprising falls out of a rule you can state in four
+      lines. Pick one. Or ignore the list entirely and bring something better —
+      it exists to save you the search, not to fence you in.</p>
+      <p class="c-warn">The references below are a starting point, not gospel. VERIFY the citation yourself before you submit — a reference that does not resolve to a real paper is grounds for rejection, and &#x27;the list said so&#x27; is not a defence.</p>
+      <div class="c-wrap">
+      <table class="c-table">
+        <thead><tr><th>Model</th><th>Reference</th><th></th></tr></thead>
+        <tbody>
+<tr><td><b>Vicsek model of self-propelled particles</b><br><span class="c-why">The minimal flocking model. A genuine order-disorder phase transition as noise falls.</span></td><td class="c-ref">Vicsek et al. 1995, Phys. Rev. Lett. 75(6)</td><td><span class="c-diff c-easy">easy</span></td></tr>
+<tr><td><b>Schelling segregation</b><br><span class="c-why">Mild individual preference produces near-total segregation. Nobody wanted the outcome.</span></td><td class="c-ref">Schelling 1971, J. Math. Sociol. 1</td><td><span class="c-diff c-easy">easy</span></td></tr>
+<tr><td><b>Langton&#x27;s ant / turmites</b><br><span class="c-why">Ten thousand steps of chaos, then it builds a highway forever. Still unexplained.</span></td><td class="c-ref">Langton 1986, Physica D 22</td><td><span class="c-diff c-easy">easy</span></td></tr>
+<tr><td><b>Forest fire model</b><br><span class="c-why">Self-organised criticality with a visibly burning front.</span></td><td class="c-ref">Drossel &amp; Schwabl 1992, Phys. Rev. Lett. 69</td><td><span class="c-diff c-easy">easy</span></td></tr>
+<tr><td><b>Cyclic cellular automaton</b><br><span class="c-why">Noise spontaneously organises into rotating spiral cores.</span></td><td class="c-ref">Fisch, Gravner &amp; Griffeath 1991</td><td><span class="c-diff c-easy">easy</span></td></tr>
+<tr><td><b>Nagel-Schreckenberg traffic</b><br><span class="c-why">Phantom jams from nothing. Every driver is behaving.</span></td><td class="c-ref">Nagel &amp; Schreckenberg 1992, J. Phys. I 2</td><td><span class="c-diff c-easy">easy</span></td></tr>
+<tr><td><b>Voter model</b><br><span class="c-why">Coarsening consensus with no persuasion, only copying.</span></td><td class="c-ref">Clifford &amp; Sudbury 1973; Holley &amp; Liggett 1975</td><td><span class="c-diff c-easy">easy</span></td></tr>
+<tr><td><b>Percolation and the critical threshold</b><br><span class="c-why">One extra open site and the cluster suddenly spans the world.</span></td><td class="c-ref">Broadbent &amp; Hammersley 1957</td><td><span class="c-diff c-easy">easy</span></td></tr>
+<tr><td><b>Eden growth model</b><br><span class="c-why">The counterpoint to DLA: same randomness, compact blob instead of filigree.</span></td><td class="c-ref">Eden 1961, Berkeley Symp. Math. Stat. Prob.</td><td><span class="c-diff c-easy">easy</span></td></tr>
+<tr><td><b>Ising model with Metropolis dynamics</b><br><span class="c-why">Magnetisation appearing at the Curie point, live.</span></td><td class="c-ref">Metropolis et al. 1953, J. Chem. Phys. 21</td><td><span class="c-diff c-medium">medium</span></td></tr>
+<tr><td><b>Spatial prisoner&#x27;s dilemma</b><br><span class="c-why">Cooperation survives purely because it clusters. Chaotic fractal boundaries.</span></td><td class="c-ref">Nowak &amp; May 1992, Nature 359</td><td><span class="c-diff c-medium">medium</span></td></tr>
+<tr><td><b>Rock-paper-scissors cyclic competition</b><br><span class="c-why">Mobility decides coexistence versus extinction. Spiral waves of species.</span></td><td class="c-ref">Reichenbach, Mobilia &amp; Frey 2007, Nature 448</td><td><span class="c-diff c-medium">medium</span></td></tr>
+<tr><td><b>Bak-Sneppen evolution</b><br><span class="c-why">Punctuated equilibrium out of a rule with no punctuation in it.</span></td><td class="c-ref">Bak &amp; Sneppen 1993, Phys. Rev. Lett. 71</td><td><span class="c-diff c-easy">easy</span></td></tr>
+<tr><td><b>Olami-Feder-Christensen earthquakes</b><br><span class="c-why">Gutenberg-Richter law emerging from a spring-block lattice.</span></td><td class="c-ref">Olami, Feder &amp; Christensen 1992, Phys. Rev. Lett. 68</td><td><span class="c-diff c-medium">medium</span></td></tr>
+<tr><td><b>Axelrod cultural dissemination</b><br><span class="c-why">Similarity breeds interaction breeds similarity - and yet stable difference persists.</span></td><td class="c-ref">Axelrod 1997, J. Conflict Resolution 41</td><td><span class="c-diff c-medium">medium</span></td></tr>
+<tr><td><b>Sznajd opinion dynamics</b><br><span class="c-why">United we stand: only pairs that agree can convince anyone.</span></td><td class="c-ref">Sznajd-Weron &amp; Sznajd 2000, Int. J. Mod. Phys. C</td><td><span class="c-diff c-easy">easy</span></td></tr>
+<tr><td><b>Dielectric breakdown model</b><br><span class="c-why">Lightning. One exponent tunes it from DLA filigree to a straight bolt.</span></td><td class="c-ref">Niemeyer, Pietronero &amp; Wiesmann 1984, Phys. Rev. Lett. 52</td><td><span class="c-diff c-hard">hard</span></td></tr>
+<tr><td><b>Invasion percolation</b><br><span class="c-why">Fluid finding the path of least resistance, trapping pockets as it goes.</span></td><td class="c-ref">Wilkinson &amp; Willemsen 1983, J. Phys. A 16</td><td><span class="c-diff c-medium">medium</span></td></tr>
+<tr><td><b>Ballistic deposition and KPZ scaling</b><br><span class="c-why">A roughening interface whose exponents are universal.</span></td><td class="c-ref">Kardar, Parisi &amp; Zhang 1986, Phys. Rev. Lett. 56</td><td><span class="c-diff c-medium">medium</span></td></tr>
+<tr><td><b>Snowflake growth CA</b><br><span class="c-why">Sixfold symmetry with no template. Every one different, all six arms alike.</span></td><td class="c-ref">Gravner &amp; Griffeath 2008, Phys. Rev. E 79; Reiter 2005</td><td><span class="c-diff c-medium">medium</span></td></tr>
+<tr><td><b>Ant colony pheromone foraging</b><br><span class="c-why">The double-bridge experiment: the colony finds the shorter path without comparing them.</span></td><td class="c-ref">Deneubourg et al. 1990, J. Insect Behav. 3</td><td><span class="c-diff c-medium">medium</span></td></tr>
+<tr><td><b>Swarmalators</b><br><span class="c-why">Things that sync AND swarm, coupling phase to position. Five distinct states.</span></td><td class="c-ref">O&#x27;Keeffe, Hong &amp; Strogatz 2017, Nature Communications 8</td><td><span class="c-diff c-medium">medium</span></td></tr>
+<tr><td><b>Topological flocking</b><br><span class="c-why">Real starlings track seven neighbours by rank, not by distance. Show the difference.</span></td><td class="c-ref">Ballerini et al. 2008, PNAS 105</td><td><span class="c-diff c-medium">medium</span></td></tr>
+<tr><td><b>Motility-induced phase separation</b><br><span class="c-why">Purely repulsive self-propelled particles condense into a liquid. No attraction anywhere.</span></td><td class="c-ref">Cates &amp; Tailleur 2015, Annu. Rev. Condens. Matter Phys. 6</td><td><span class="c-diff c-hard">hard</span></td></tr>
+<tr><td><b>Belousov-Zhabotinsky / Oregonator</b><br><span class="c-why">The chemical clock that was rejected as impossible. Target patterns and spirals.</span></td><td class="c-ref">Field &amp; Noyes 1974, J. Chem. Phys. 60</td><td><span class="c-diff c-hard">hard</span></td></tr>
+<tr><td><b>Turing patterns on a growing domain</b><br><span class="c-why">Angelfish stripes rearranging as the fish grows - predicted, then observed.</span></td><td class="c-ref">Kondo &amp; Asai 1995, Nature 376</td><td><span class="c-diff c-hard">hard</span></td></tr>
+<tr><td><b>Hopfield associative memory</b><br><span class="c-why">A memory that is nowhere in particular, recalled from a corrupted fragment.</span></td><td class="c-ref">Hopfield 1982, PNAS 79</td><td><span class="c-diff c-medium">medium</span></td></tr>
+<tr><td><b>Neural cellular automata</b><br><span class="c-why">A learned local rule that regrows a whole image after you cut it in half.</span></td><td class="c-ref">Mordvintsev et al. 2020, Distill</td><td><span class="c-diff c-hard">hard</span></td></tr>
+<tr><td><b>Physarum with food sources</b><br><span class="c-why">The Tokyo rail experiment itself: place the cities, let it solve the network.</span></td><td class="c-ref">Tero et al. 2010, Science 327</td><td><span class="c-diff c-medium">medium</span></td></tr>
+<tr><td><b>Sandpile identity element</b><br><span class="c-why">The identity of the sandpile group is an object of staggering and pointless beauty.</span></td><td class="c-ref">Dhar 1990, Phys. Rev. Lett. 64</td><td><span class="c-diff c-medium">medium</span></td></tr>
+<tr><td><b>Hexagonal / triangular lattice sandpiles</b><br><span class="c-why">Same rule, different lattice, completely different mandala.</span></td><td class="c-ref">Dhar 1990, Phys. Rev. Lett. 64</td><td><span class="c-diff c-easy">easy</span></td></tr>
+<tr><td><b>Two-dimensional totalistic cellular automata</b><br><span class="c-why">Room VIII in two dimensions. Vastly more universes to fall into.</span></td><td class="c-ref">Wolfram 1984, Nature 311</td><td><span class="c-diff c-easy">easy</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
   <section class="doc-sec">
     <h2>Sign the register</h2>
     <div>

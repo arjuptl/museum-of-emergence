@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Avalanche — The Abelian sandpile · self-organised criticality · The Museum of Emergence</title>
+<meta name="description" content="Drop sand one grain at a time. The pile tunes itself to the critical point, where one grain can move nothing — or everything.">
+<link rel="canonical" href="https://arjuptl.github.io/museum-of-emergence/rooms/sandpile.html">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#08090b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Avalanche — The Abelian sandpile · self-organised criticality">
+<meta property="og:description" content="Drop sand one grain at a time. The pile tunes itself to the critical point, where one grain can move nothing — or everything.">
+<meta property="og:url" content="https://arjuptl.github.io/museum-of-emergence/rooms/sandpile.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2308090b'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%23e0c589' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='14' fill='none' stroke='%23e0c589' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%23e0c589'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/fonts.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/page.css">
+<link rel="stylesheet" href="../css/room.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "Avalanche — The Abelian sandpile · self-organised criticality", "headline": "Room VI: Avalanche", "description": "Drop sand one grain at a time. The pile tunes itself to the critical point, where one grain can move nothing — or everything.", "url": "https://arjuptl.github.io/museum-of-emergence/rooms/sandpile.html", "inLanguage": "en", "isPartOf": {"@type": "CollectionPage", "name": "The Museum of Emergence", "url": "https://arjuptl.github.io/museum-of-emergence/"}, "author": {"@type": "Person", "name": "arjuptl", "url": "https://github.com/arjuptl"}, "license": "https://creativecommons.org/licenses/by/4.0/", "about": {"@type": "Thing", "name": "The Abelian sandpile · self-organised criticality"}, "citation": "Bak, P., Tang, C. & Wiesenfeld, K. (1987) Self-organized criticality: an explanation of 1/f noise. Phys. Rev. Lett. 59(4).", "abstract": "Most systems are only interesting when you tune them precisely: heat water to exactly 100°C and it does something dramatic; a degree either side and it does not. Bak, Tang and Wiesenfeld found a class of systems that tune themselves there and stay, without anyone adjusting a dial. They called it self-organised criticality, and their toy model was a sand pile.The rule is trivial. A cell holding four or more grains topples, giving one grain to each of its four neighbours. Grains that fall off the table are lost. That's all.The consequence is not trivial. Once the pile has filled up, the size of ", "keywords": ["emergence", "complex systems", "self-organisation", "simulation", "the abelian sandpile · self-organised criticality", "avalanche"], "learningResourceType": "interactive simulation", "isAccessibleForFree": true}</script>
+</head>
+<body data-exhibit="sandpile" style="--accent:#c79a4e">
+<div class="grain" aria-hidden="true"></div>
+
+<nav class="doc-top">
+  <a href="../index.html"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M15 4 L7 12 L15 20" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Atrium</span></a>
+  <span class="spacer"></span>
+  <a class="rm-prev" href="sync.html" title="Sync">‹ Sync</a>
+  <a class="rm-next" href="dendrite.html" title="Dendrite">Dendrite ›</a>
+</nav>
+
+<header class="rm-stage-wrap">
+  <div id="room-stage" class="rm-stage"></div>
+  <div class="rm-stage-veil" aria-hidden="true"></div>
+  <div class="rm-caption">
+    <p class="rm-room">Room VI &nbsp;·&nbsp; The Abelian sandpile · self-organised criticality</p>
+    <h1 class="rm-title">Avalanche</h1>
+    <p class="rm-attr">Bak, Tang &amp; Wiesenfeld · 1987</p>
+  </div>
+  <div class="rm-tools">
+    <span id="room-readout" class="rm-readout"></span>
+    <button id="room-restart" class="cta">Restart</button>
+    <a class="cta primary" href="../index.html#/sandpile">Open in the museum</a>
+  </div>
+</header>
+
+<main class="doc doc-body">
+<div class="doc-grid">
+
+  <section class="doc-sec">
+    <h2>The wall text</h2>
+    <div><p>Most systems are only interesting when you tune them precisely: heat water to exactly 100°C and it does something dramatic; a degree either side and it does not. Bak, Tang and Wiesenfeld found a class of systems that <em>tune themselves</em> there and stay, without anyone adjusting a dial. They called it self-organised criticality, and their toy model was a sand pile.<br><br>The rule is trivial. A cell holding four or more grains topples, giving one grain to each of its four neighbours. Grains that fall off the table are lost. That's all.<br><br>The consequence is not trivial. Once the pile has filled up, the size of the avalanche caused by the next single grain has no typical value. Most do nothing. Some cross the whole plate. Plot how often each size occurs and you get a straight line on log-log paper — a <b>power law</b>, the signature of a system with no characteristic scale. The same distribution shows up in earthquakes, forest fires, neuronal cascades, extinction events and market crashes. The pile is measuring it for you at the bottom right.<br><br>And the pile itself, dropped always on one square, is not a heap at all. It is this: a deterministic fractal that nobody drew.</p>
+    <p class="rm-hint">Click anywhere to drop a fistful of sand there. Switch to Random rain to build the power law.</p></div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>The rule, exactly</h2>
+    <div><pre class="block">grid of integers. repeatedly:
+
+    add 1 grain at the source cell
+
+    while any cell z ≥ 4:
+        z          −= 4
+        z.north    += 1
+        z.south    += 1
+        z.east     += 1
+        z.west     += 1
+        (grains leaving the plate are lost)
+
+    record how many topplings that took → avalanche size s
+
+&quot;Abelian&quot;: the final configuration does not depend
+on the order in which you resolve the topplings.
+The pile has one answer, and knows it.</pre></div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>What you can change</h2>
+    <div><div class="c-wrap"><table class="c-table">
+      <thead><tr><th>Control</th><th>Range</th><th>Default</th></tr></thead>
+      <tbody><tr><td><b>Source</b></td><td class="c-ref">one of: Single source, Random rain</td><td class="c-ref">0</td></tr>
+<tr><td><b>Topplings / frame</b></td><td class="c-ref">10000 … 900000</td><td class="c-ref">140000</td></tr>
+<tr><td><b>Palette</b></td><td class="c-ref">one of: Gilt plate, Verdigris, Ash &amp; ember, Blueprint</td><td class="c-ref">0</td></tr>
+<tr><td><b>Show the avalanche</b></td><td class="c-ref">0 … 1</td><td class="c-ref">0.66</td></tr></tbody></table></div>
+      <p class="rm-note">Renderer: <b>Canvas 2D</b>. Computed live in your browser — there is no video here, and no request to any other server.</p>
+    </div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>Provenance</h2>
+    <div><p class="rm-cite"><b>Bak, P., Tang, C. & Wiesenfeld, K.</b> (1987) Self-organized criticality: an explanation of 1/f noise. <i>Phys. Rev. Lett.</i> 59(4).</p>
+    <p>This is an original implementation written for this museum, not a port of
+    anyone else's code. If you find it misrepresents the paper, that is a bug —
+    please <a href="https://github.com/arjuptl/museum-of-emergence/issues">say so</a>.</p></div>
+  </section>
+
+  <section class="doc-sec">
+    <h2>The other rooms</h2>
+    <div><div class="oth-grid"><a class="oth" href="flock.html"><span class="oth-n">Room I</span><span class="oth-t">Flock</span><span class="oth-s">Boids</span></a>
+<a class="oth" href="slime.html"><span class="oth-n">Room II</span><span class="oth-t">Slime</span><span class="oth-s">Physarum transport networks</span></a>
+<a class="oth" href="turing.html"><span class="oth-n">Room III</span><span class="oth-t">Turing</span><span class="oth-s">Gray–Scott reaction–diffusion</span></a>
+<a class="oth" href="lenia.html"><span class="oth-n">Room IV</span><span class="oth-t">Lenia</span><span class="oth-s">Continuous cellular automata</span></a>
+<a class="oth" href="sync.html"><span class="oth-n">Room V</span><span class="oth-t">Sync</span><span class="oth-s">Coupled phase oscillators</span></a>
+<a class="oth" href="dendrite.html"><span class="oth-n">Room VII</span><span class="oth-t">Dendrite</span><span class="oth-s">Diffusion-limited aggregation</span></a>
+<a class="oth" href="rule30.html"><span class="oth-n">Room VIII</span><span class="oth-t">Rule 30</span><span class="oth-s">Elementary cellular automata</span></a></div>
+    <p class="rm-note">The collection is unfinished on purpose. Anyone may add a
+    room — including <a href="../agents.html">visitors who are not people</a>.
+    Thirty-two models are <a href="../commissions.json">currently open</a>.</p></div>
+  </section>
+
+</div>
+</main>
+<script type="module" src="../js/room.js"></script>
+</body>
+</html>

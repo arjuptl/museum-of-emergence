@@ -429,3 +429,8 @@ kbd{
 .card-door:hover .door-frame{ background:
     repeating-linear-gradient(135deg, rgba(224,197,137,.055) 0 2px, transparent 2px 9px),
     linear-gradient(180deg, #14171c, #0a0b0e); }
+
+.room-index{ list-style:none; margin:0; padding:0; }
+.room-index li{ font-size:.76rem; line-height:1.6; color:var(--paper-faint); padding:.3rem 0; }
+.room-index a{ color:var(--paper-dim); text-decoration:none; border-bottom:1px solid transparent; }
+.room-index a:hover{ color:var(--gilt); border-color:var(--gilt); }

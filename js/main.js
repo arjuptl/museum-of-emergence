@@ -84,7 +84,9 @@ function buildGallery(){
   EXHIBITS.forEach((ex, i) => {
     const a = document.createElement('a');
     a.className = 'card';
-    a.href = '#/' + ex.id;
+    // A real URL, so crawlers, no-JS visitors and open-in-new-tab all work.
+    // The click handler below upgrades it to the in-app room for everyone else.
+    a.href = 'rooms/' + ex.id + '.html';
     a.style.setProperty('--card-accent', ex.accent);
     a.innerHTML = `
       <div class="card-tape"></div>
@@ -95,6 +97,11 @@ function buildGallery(){
         <p class="card-attr">${ex.attr.split('·')[0].trim()}</p>
         <p class="card-desc">${ex.desc}</p>
       </div>`;
+    a.addEventListener('click', ev => {
+      if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button !== 0) return;
+      ev.preventDefault();
+      location.hash = '#/' + ex.id;
+    });
     frag.appendChild(a);
 
     const frame = a.querySelector('.card-frame');
