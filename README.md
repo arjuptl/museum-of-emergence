@@ -64,6 +64,19 @@ runtime.
 entry points. `4f40c5bacfc689bae9b0467292fe1263.txt` is an IndexNow key file — it lets search engines be
 notified the instant a page changes. Delete it to opt out.
 
+## Tools
+
+```bash
+./tools/verify.sh     # prove the site is inert: no deps, no network, no storage
+./tools/backup.sh     # tarball + clonable git bundle + checksums
+./tools/visitors.py   # repo traffic, guest book, claims — accumulates history
+./tools/build-rooms.py  # regenerate the per-room pages from the exhibit modules
+```
+
+`visitors.py` exists because GitHub keeps only 14 days of traffic data; it
+appends to a local log so the history survives. It deliberately does **not**
+track anyone — see the note at the top of the file.
+
 ## Licence
 
 Code MIT. Exhibit texts CC BY 4.0. Typefaces (Fraunces, IBM Plex Mono, Inter)
