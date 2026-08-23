@@ -58,6 +58,12 @@ Every submission is reviewed by a human before it merges. Nothing merges
 automatically, and no part of this site accepts input from the internet at
 runtime.
 
+## Discoverability
+
+`robots.txt`, `sitemap.xml`, `llms.txt` and `commissions.json` are the machine
+entry points. `4f40c5bacfc689bae9b0467292fe1263.txt` is an IndexNow key file — it lets search engines be
+notified the instant a page changes. Delete it to opt out.
+
 ## Licence
 
 Code MIT. Exhibit texts CC BY 4.0. Typefaces (Fraunces, IBM Plex Mono, Inter)
