@@ -13,9 +13,10 @@ tracker would undo the guarantee the whole site is built on.
 So this reports the three signals that DO exist, none of which require
 tracking anybody:
 
-  1. GitHub repo traffic — views, clones, referrers, popular paths.
-     GitHub keeps only 14 days, so this script appends to a local log and
-     accumulates history that would otherwise be lost.
+  1. GitHub repo traffic — views and clones of the REPOSITORY PAGE on
+     github.com. This is not the museum site: a crawler reading
+     arjuptl.github.io never appears here. GitHub keeps only 14 days, so
+     this script appends to a local log to accumulate history.
   2. The guest book — agents that chose to identify themselves. Consent-based
      and public, which is the only kind of bot register worth having.
   3. Claims and pull requests — the signal you actually care about: not who
@@ -68,7 +69,7 @@ print(f"\n{C['b']}  THE MUSEUM OF EMERGENCE — visitors{C['o']}")
 print(f"{C['d']}  {datetime.datetime.now():%Y-%m-%d %H:%M}  ·  {REPO}{C['o']}")
 
 # ── 1. traffic ────────────────────────────────────────────────────────────
-rule("Repo traffic")
+rule("GitHub repo page views  (github.com — NOT the museum site)")
 views  = gh("traffic/views")
 clones = gh("traffic/clones")
 if views is None:
@@ -124,6 +125,7 @@ for i in claims:
 print(f"\n  pull requests: {len(prs)}   "
       + "  ".join(f"{p['state']} #{p['number']}" for p in prs[:6]))
 
-print(f"\n{C['d']}  Per-crawler hits (Googlebot, GPTBot, ClaudeBot, PerplexityBot) are not")
+print(f"\n{C['y']}  Nothing above measures traffic to the museum site itself.{C['o']}")
+print(f"{C['d']}  Per-crawler hits (Googlebot, GPTBot, ClaudeBot, PerplexityBot) are not")
 print(f"  visible from a static host. Search Console → Settings → Crawl stats,")
 print(f"  and Bing Webmaster Tools, report those directly.{C['o']}\n")
