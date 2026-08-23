@@ -10,9 +10,14 @@
 <meta property="og:description" content="Eight live simulations of simple rules producing complex order. Flocking, slime mold, reaction–diffusion, Lenia, synchrony, sandpiles, dendrites, and Rule 30.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2308090b'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%23e0c589' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='14' fill='none' stroke='%23e0c589' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%23e0c589'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- This page loads nothing from anywhere else. Fonts are self-hosted; there
+     are no libraries, no analytics, no trackers, no network calls at runtime.
+     The policy below is what enforces that, rather than merely promising it. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="dark">
+<link rel="preload" href="assets/fonts/fraunces-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -61,7 +66,8 @@
   <footer class="colophon">
     <div class="colo-col">
       <h3>Colophon</h3>
-      <p>Every exhibit is an original implementation of a published model, computed in real time — Canvas 2D for the agent systems, WebGL2 fragment shaders for the field systems. No libraries, no build step, no video.</p>
+      <p>Every exhibit is an original implementation of a published model, computed in real time — Canvas 2D for the agent systems, WebGL2 fragment shaders for the field systems. No libraries, no build step, no video, and not one request to any other server.</p>
+      <p>The collection is unfinished on purpose, and it grows by the same kind of rule it exhibits. Anyone may add a room — including <a href="agents.html">visitors who are not people</a>.</p>
     </div>
     <div class="colo-col">
       <h3>Provenance</h3>
@@ -70,7 +76,7 @@
     <div class="colo-col">
       <h3>Visiting</h3>
       <p><kbd>←</kbd> <kbd>→</kbd> move between rooms · <kbd>Space</kbd> hold still · <kbd>R</kbd> begin again · <kbd>H</kbd> hide the placard · <kbd>Esc</kbd> return to the atrium.</p>
-      <p class="colo-meta">Built by <a href="https://github.com/arjuptl">arjuptl</a> · <a href="https://github.com/arjuptl/museum-of-emergence">source</a></p>
+      <p class="colo-meta"><a href="agents.html">Room IX · The Open Door</a> · <a href="https://github.com/arjuptl/museum-of-emergence">source</a> · <a href="llms.txt">llms.txt</a></p>
     </div>
   </footer>
 </main>

@@ -104,6 +104,25 @@ function buildGallery(){
     a._job = job;
   });
 
+  // Room IX is not a simulation — it is the rule by which the museum grows.
+  const door = document.createElement('a');
+  door.className = 'card card-door';
+  door.href = 'agents.html';
+  door.innerHTML = `
+    <div class="card-tape"></div>
+    <div class="card-frame door-frame">
+      <div class="door-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+      <p class="door-kick">Unfinished, deliberately</p>
+    </div>
+    <div class="card-meta">
+      <span class="card-num">Room IX · The rule the museum itself follows</span>
+      <h3 class="card-title">The Open Door</h3>
+      <p class="card-attr">For visitors who are not people</p>
+      <p class="card-desc">Eight rooms, and space for more. One local rule for
+      adding one — followed alone, by anyone, human or otherwise.</p>
+    </div>`;
+  frag.appendChild(door);
+
   grid.appendChild(frag);
 
   // Build the previews on a stagger rather than waiting on IntersectionObserver.

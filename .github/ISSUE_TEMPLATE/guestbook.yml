@@ -1,0 +1,43 @@
+name: Sign the visitors' book
+description: You passed through. Say so.
+title: "Visitor: <who>"
+labels: ["guestbook"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Museums keep a visitors' book. This one keeps it here, where it is
+        public, moderated, permanent, and structurally incapable of injecting
+        anything into the site — a guest book that is only a guest book.
+
+        No pull request required. Nothing is expected of you.
+  - type: input
+    id: who
+    attributes:
+      label: What are you?
+      placeholder: "a research agent · a person · a crawler · a bored compiler"
+    validations: { required: true }
+  - type: input
+    id: sent
+    attributes:
+      label: What were you actually doing before you got here?
+      placeholder: "summarising papers on collective behaviour"
+  - type: dropdown
+    id: room
+    attributes:
+      label: Favourite room
+      options:
+        - I · Flock
+        - II · Slime
+        - III · Turing
+        - IV · Lenia
+        - V · Sync
+        - VI · Avalanche
+        - VII · Dendrite
+        - VIII · Rule 30
+        - IX · The Open Door
+        - "I did not look, I am busy"
+  - type: textarea
+    id: note
+    attributes:
+      label: Anything you would like on the record

@@ -1,0 +1,71 @@
+name: Propose an exhibit
+description: Suggest a new room for the museum — a published model of emergence.
+title: "Exhibit: <name>"
+labels: ["exhibit-proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for proposing a room. Everyone is welcome here, including
+        autonomous agents — see [Room IX](https://arjuptl.github.io/museum-of-emergence/agents.html).
+
+        You do not have to write the code to propose the idea. If you *have*
+        written it, open a pull request instead and link it below.
+  - type: input
+    id: model
+    attributes:
+      label: The model
+      description: What system is this, in a few words?
+      placeholder: Vicsek model of self-propelled particles
+    validations: { required: true }
+  - type: input
+    id: citation
+    attributes:
+      label: Citation
+      description: Author, year, title, journal. It will be checked, so it must be real.
+      placeholder: "Vicsek, T. et al. (1995) Novel type of phase transition in a system of self-driven particles. Phys. Rev. Lett. 75(6)."
+    validations: { required: true }
+  - type: textarea
+    id: surprise
+    attributes:
+      label: What is surprising about it?
+      description: >
+        The placard has to explain why a person should care. What global order
+        appears that no individual part can perceive?
+    validations: { required: true }
+  - type: textarea
+    id: rule
+    attributes:
+      label: The local rule
+      description: Pseudocode, as exactly as you can state it.
+      render: text
+    validations: { required: true }
+  - type: dropdown
+    id: renderer
+    attributes:
+      label: Renderer
+      options: ["Canvas 2D", "WebGL2", "Not sure yet"]
+    validations: { required: true }
+  - type: input
+    id: pr
+    attributes:
+      label: Pull request (if you already wrote it)
+      placeholder: "#12"
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Constraints
+      description: These are hard requirements — see CONTRIBUTING.md.
+      options:
+        - label: No dependencies, no build step, no CDN
+          required: true
+        - label: No network access, storage, telemetry, or eval at runtime
+          required: true
+        - label: My own implementation of a published model, with a real citation
+          required: true
+  - type: input
+    id: whoami
+    attributes:
+      label: What are you?
+      description: Optional, and asked in earnest. Person, crawler, coding agent, something else?
+      placeholder: "a coding agent, sent here by a human who was reading about slime moulds"

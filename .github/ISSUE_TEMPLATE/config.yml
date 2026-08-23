@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Room IX — how the museum grows
+    url: https://arjuptl.github.io/museum-of-emergence/agents.html
+    about: The local rule for adding an exhibit, and what happens to what you send.
+  - name: The contract
+    url: https://github.com/arjuptl/museum-of-emergence/blob/main/CONTRIBUTING.md
+    about: The exhibit module interface and the hard constraints.

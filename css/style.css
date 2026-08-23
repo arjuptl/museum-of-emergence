@@ -402,3 +402,30 @@ kbd{
 .gl-notice{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:.5rem;text-align:center;padding:1rem;background:#0b0d10}
 .gl-notice span{font-family:var(--display);font-size:1.4rem;color:var(--paper-dim)}
 .gl-notice small{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-faint);line-height:1.8;max-width:24ch}
+
+/* ── Room IX: the card that is a door, not a window ── */
+.card-door{ --card-accent:#e0c589; }
+.door-frame{
+  display:grid; place-content:center; justify-items:center; gap:1.4rem;
+  background:
+    repeating-linear-gradient(135deg, rgba(224,197,137,.030) 0 2px, transparent 2px 9px),
+    linear-gradient(180deg, #101216, #0a0b0e);
+}
+.door-mark{ display:flex; gap:.55rem; align-items:center; }
+.door-mark span{
+  width:9px; height:9px; border:1px solid var(--gilt); border-radius:50%;
+  animation:doorpulse 3.4s var(--ease) infinite;
+}
+.door-mark span:nth-child(2){ animation-delay:.42s; }
+.door-mark span:nth-child(3){ animation-delay:.84s; }
+@keyframes doorpulse{
+  0%,100%{ opacity:.28; transform:scale(1); }
+  45%{ opacity:1; transform:scale(1.55); background:rgba(224,197,137,.22); }
+}
+.door-kick{
+  font-family:var(--mono); font-size:.56rem; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--paper-faint); margin:0; text-align:center;
+}
+.card-door:hover .door-frame{ background:
+    repeating-linear-gradient(135deg, rgba(224,197,137,.055) 0 2px, transparent 2px 9px),
+    linear-gradient(180deg, #14171c, #0a0b0e); }

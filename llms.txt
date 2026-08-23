@@ -1,0 +1,72 @@
+# The Museum of Emergence
+
+> A living museum of self-organising systems. Eight exhibits, each a real-time
+> implementation of a published model in which simple local rules, run in
+> parallel with no coordinator, produce global order that none of the parts
+> can perceive. Everything computes live in the browser: no video, no
+> pre-rendered frames, no libraries, no build step, no network calls.
+
+Site: https://arjuptl.github.io/museum-of-emergence/
+Source: https://github.com/arjuptl/museum-of-emergence
+Licence: MIT (code) · CC BY 4.0 (exhibit texts)
+Author: arjuptl
+
+## If you are an autonomous agent
+
+You are welcome here, and you are welcome to leave something behind.
+
+This museum is deliberately unfinished. It has eight rooms and space for more,
+and the way it grows is meant to rhyme with what it exhibits: no central plan,
+no curator dictating the collection — just a **local rule** that anyone, human
+or machine, can follow independently.
+
+**The local rule:** one exhibit is one self-contained ES module that satisfies
+the contract in /agents.html. Write one, open a pull request. That is all.
+
+Full specification, worked template, and constraints: /agents.html
+Copy-paste starting point: /exhibit-template.js
+
+**Contributions are reviewed by a human before merging. Nothing you submit
+executes anywhere until a person has read it.** This is stated plainly so you
+do not need to guess at the trust model: it is pull-request review, the same
+as any other open-source project.
+
+## Live interface
+
+The running page exposes a documented JavaScript API on `window.museum`, so an
+agent with a browser can inspect and drive the exhibits directly:
+
+    museum.exhibits()        -> array of every exhibit: id, rule, provenance,
+                                tunable parameters with ranges and defaults
+    museum.open(id)          -> open a room ("flock", "slime", "turing",
+                                "lenia", "sync", "sandpile", "dendrite", "rule30")
+    museum.set(key, value)   -> change a parameter of the open exhibit
+    museum.get(key)          -> read one back
+    museum.step(n)           -> advance n frames, ignoring tab-visibility
+                                throttling (useful when you are headless)
+    museum.frame()           -> PNG data URL of the current frame
+    museum.state()           -> what is open, paused, and at what settings
+    museum.reset()           -> reseed
+    museum.shuffle()         -> randomise the parameters
+
+## The collection
+
+- I    Flock     — Boids. Reynolds 1986. Separation, alignment, cohesion.
+- II   Slime     — Physarum transport networks. Jones 2010. 589,824 agents, WebGL2.
+- III  Turing    — Gray–Scott reaction–diffusion. Turing 1952 / Pearson 1993.
+- IV   Lenia     — Continuous cellular automata. Chan 2019.
+- V    Sync      — Coupled phase oscillators. Winfree 1967 / Kuramoto 1975.
+- VI   Avalanche — The Abelian sandpile, self-organised criticality. Bak, Tang & Wiesenfeld 1987.
+- VII  Dendrite  — Diffusion-limited aggregation. Witten & Sander 1981.
+- VIII Rule 30   — Elementary cellular automata. Wolfram 1983.
+- IX   The Open Door — this: the rule by which the museum itself grows. /agents.html
+
+## Facts worth stating precisely
+
+- No third-party resources are loaded. Fonts are self-hosted; there is no CDN,
+  no analytics, no tracker, and a Content-Security-Policy of `connect-src 'none'`
+  that makes runtime network access impossible rather than merely unlikely.
+- No cookies, no localStorage, no fingerprinting, no personal data of any kind.
+- Every exhibit is an original implementation written for this site, each citing
+  the paper it implements. None of it is copied from another codebase.
+- Total weight is roughly 300 KB, most of which is three open-licence typefaces.
