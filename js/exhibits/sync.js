@@ -27,6 +27,7 @@ Synchrony is a phase transition, not a gradient.`,
   hint:'Click to shock a patch of the swarm out of step, and watch it get pulled back in.',
   ref:'<b>Kuramoto, Y.</b> (1975) Self-entrainment of a population of coupled non-linear oscillators. · <b>Strogatz, S.</b> (2003) <i>Sync</i>.',
   gl:false,
+  prewarm:45,
   params:[
     {k:'K',      label:'Coupling K',     min:0, max:14, step:0.05, val:3.6, fmt:v=>v.toFixed(2)},
     {k:'spread', label:'Frequency spread', min:0, max:2.2, step:0.02, val:0.62, fmt:v=>v.toFixed(2)},
@@ -132,15 +133,15 @@ Synchrony is a phase transition, not a gradient.`,
           ctx.beginPath(); ctx.arc(x[i], y[i], base*0.5, 0, TAU); ctx.fill();
           continue;
         }
-        const rad = base * (1 + f * 5.5);
-        const g = ctx.createRadialGradient(x[i], y[i], 0, x[i], y[i], rad * 3.4);
+        const rad = base * (1 + f * 3.4);
+        const g = ctx.createRadialGradient(x[i], y[i], 0, x[i], y[i], rad * 2.5);
         g.addColorStop(0,   `rgba(255,244,206,${0.95*f})`);
         g.addColorStop(0.22,`rgba(246,206,110,${0.62*f})`);
         g.addColorStop(0.6, `rgba(180,132,48,${0.16*f})`);
         g.addColorStop(1,   'rgba(120,90,30,0)');
         ctx.globalAlpha = 1;
         ctx.fillStyle = g;
-        ctx.beginPath(); ctx.arc(x[i], y[i], rad*3.4, 0, TAU); ctx.fill();
+        ctx.beginPath(); ctx.arc(x[i], y[i], rad*2.5, 0, TAU); ctx.fill();
       }
       ctx.globalCompositeOperation = 'source-over';
       ctx.globalAlpha = 1;

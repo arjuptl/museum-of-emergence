@@ -107,6 +107,7 @@ Orbium:  R = 13   T = 10   μ = 0.15   σ = 0.015`,
   hint:'Tear a hole with the pointer and watch it close. σ is the knife edge — a thousandth either way and the colony dissolves or runs away.',
   ref:'<b>Chan, B. W-C.</b> (2019) Lenia: Biology of Artificial Life. <i>Complex Systems</i> 28(3).',
   gl:true,
+  prewarm:170,
   params:[
     {k:'mu',    label:'Growth centre μ', min:0.05, max:0.40, step:0.001, val:0.150, fmt:v=>v.toFixed(3)},
     {k:'sigma', label:'Growth width σ',  min:0.003,max:0.060,step:0.0005,val:0.0150,fmt:v=>v.toFixed(4)},

@@ -50,6 +50,7 @@ sticking — the cluster grows fatter and denser.`,
   hint:'Click to plant a second seed anywhere, and watch two dendrites compete for the same wandering particles.',
   ref:'<b>Witten, T. A. & Sander, L. M.</b> (1981) Diffusion-limited aggregation, a kinetic critical phenomenon. <i>Phys. Rev. Lett.</i> 47(19).',
   gl:false,
+  prewarm:40,
   params:[
     {k:'seed',   label:'Seed', options:['Single point','Frost line','Ring, growing inward'], val:0},
     {k:'stick',  label:'Stickiness p', min:0.03, max:1, step:0.01, val:1, fmt:v=>v.toFixed(2)},
@@ -70,7 +71,7 @@ sticking — the cluster grows fatter and denser.`,
     const GW = preview ? 220 : 640;
     let GH = 1;
     let stuck, off, offCtx, img, buf, cx, cy, maxR, stuckCount;
-    let recent = [];
+    let recent = [], done = false, idle = 0;
 
     const DX = [1,-1,0,0,1,1,-1,-1], DY = [0,0,1,-1,1,-1,1,-1];
 
@@ -98,6 +99,7 @@ sticking — the cluster grows fatter and denser.`,
       buf = new Uint32Array(img.data.buffer);
       buf.fill(((255 << 24) | (14 << 16) | (11 << 8) | 10) >>> 0);   // ABGR ink
       cx = GW >> 1; cy = GH >> 1; maxR = 2; stuckCount = 0; recent = [];
+      done = false; idle = 0;
 
       const mode = Math.round(P.seed);
       if (mode === 0){
@@ -135,6 +137,15 @@ sticking — the cluster grows fatter and denser.`,
       recent.length = 0;
 
       const halfMin = Math.min(GW, GH) * 0.49;
+      // Once the cluster reaches the launch circle, walkers would spawn on top
+      // of it and pile into a bright shell. Stop instead: the specimen is
+      // finished. Hold it for a few seconds, then grow a fresh one.
+      if (mode === 0 && maxR + 8 >= halfMin) done = true;
+      if (done){
+        if (++idle > 260) build();
+        budget = 0;
+      }
+      const before = stuckCount;
       const maxDim  = Math.max(GW, GH) * 0.95;
       let x = 0, y = 0, alive = false, guard = 0;
       let killR2 = 0, safe2 = 0;
@@ -194,6 +205,11 @@ sticking — the cluster grows fatter and denser.`,
         }
       }
 
+      if (!done){
+        if (stuckCount === before){ if (++idle > 90) done = true; }
+        else idle = 0;
+      }
+
       offCtx.putImageData(img, 0, 0);
       ctx.fillStyle = '#0a0b0e'; ctx.fillRect(0, 0, W, H);
       ctx.imageSmoothingEnabled = true;
@@ -227,7 +243,8 @@ sticking — the cluster grows fatter and denser.`,
         const d = Math.hypot(gx - cx, gy - cy) + 6;
         if (d > maxR) maxR = d;
       },
-      count(){ return stuckCount.toLocaleString() + ' particles frozen · ' + GW + '×' + GH + ' lattice'; },
+      count(){ return stuckCount.toLocaleString() + ' particles frozen · ' + GW + '×' + GH + ' lattice'
+                      + (done ? ' · specimen complete' : ''); },
       destroy(){}
     };
   }

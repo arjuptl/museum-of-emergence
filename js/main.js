@@ -55,6 +55,14 @@ function mount(host, exhibit, {preview = false, params = null, maxDpr = 2} = {})
   let inst = null;
   try { inst = exhibit.create(canvas, {preview, params, dpr}); }
   catch (err){ console.error('could not open ' + exhibit.id, err); }
+  // Run the rule forward before the first paint. Emergence takes a few
+  // hundred ticks, and nobody should have to watch a black rectangle for it.
+  if (inst && exhibit.prewarm){
+    const n = Math.round(exhibit.prewarm * (preview ? 0.55 : 1));
+    try { for (let i = 0; i < n; i++) inst.step(1/60, i/60); }
+    catch (err){ console.warn('warm-up failed for ' + exhibit.id, err); }
+  }
+
   if (!inst){                                   // no WebGL2? hang a wall label instead
     canvas.remove();
     const p = document.createElement('div');
@@ -90,7 +98,7 @@ function buildGallery(){
     frag.appendChild(a);
 
     const frame = a.querySelector('.card-frame');
-    const job = {id:'card-' + ex.id, visible:false, paused:false, inst:null,
+    const job = {id:'card-' + ex.id, visible:true, paused:false, inst:null,
                  interval: 1/30, host:frame, ex, mounted:false};
     Clock.add(job);
     a._job = job;
@@ -98,21 +106,28 @@ function buildGallery(){
 
   grid.appendChild(frag);
 
-  // only run what is actually on screen, and only build it once it nearly is
-  const io = new IntersectionObserver(entries => {
-    for (const e of entries){
-      const job = e.target._job;
-      if (!job) continue;
-      if (e.isIntersecting && !job.mounted){
-        const m = mount(job.host, job.ex, {preview:true, maxDpr:1.35});
-        if (m.deferred) continue;              // not laid out yet — try again next time
-        job.mounted = true;
-        job.inst = m.inst; job.canvas = m.canvas;
-      }
-      job.visible = e.isIntersecting;
-    }
-  }, {rootMargin:'240px 0px'});
-  $$('.card').forEach(c => io.observe(c));
+  // Build the previews on a stagger rather than waiting on IntersectionObserver.
+  // IO notifications ride the rendering steps, which a background tab pauses
+  // entirely — cards would then never appear at all. One per tick keeps the
+  // atrium responsive while every card comes up ready.
+  const queue = $$('.card');
+  (function mountNext(){
+    const card = queue.shift();
+    if (!card) return;
+    const job = card._job;
+    const m = mount(job.host, job.ex, {preview:true, maxDpr:1.35});
+    if (m.deferred){ queue.push(card); setTimeout(mountNext, 220); return; }
+    job.mounted = true; job.inst = m.inst; job.canvas = m.canvas;
+    setTimeout(mountNext, 90);
+  })();
+
+  // IO is now only a power switch: stop drawing what nobody is looking at.
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver(entries => {
+      for (const e of entries) if (e.target._job) e.target._job.visible = e.isIntersecting;
+    }, {rootMargin:'260px 0px'});
+    $$('.card').forEach(c => io.observe(c));
+  }
 
   // references, drawn from the exhibits themselves
   $('#refs').innerHTML = EXHIBITS.map(e => '<li>' + e.ref + '</li>').join('');
@@ -131,6 +146,9 @@ function buildHero(){
     }});
   } catch(e){ console.warn('hero unavailable', e); }
   if (!inst){ canvas.style.display = 'none'; return; }
+  // The atrium wall should already be alive when the doors open.
+  try { for (let i = 0; i < 340; i++) inst.step(1/60, i/60); }
+  catch (err){ console.warn('hero warm-up failed', err); }
   $('#hero-credit').innerHTML = 'Room II<br>Slime<br>Physarum, live';
   heroJob = Clock.add({id:'hero', visible:true, paused:false, inst});
   addEventListener('resize', () => { if (fit(canvas, 1.6)) inst.resize(); }, {passive:true});
@@ -483,8 +501,12 @@ globalThis.museum = {
   /** Advance the open exhibit by n frames regardless of tab visibility.
       Useful if you are a headless agent and rAF is throttled to nothing. */
   step(n = 1){
-    if (!Stage.inst) return 0;
-    for (let i = 0; i < n; i++) Stage.inst.step(1/60, i/60);
+    const targets = Stage.inst
+      ? [Stage.inst]
+      : [...Clock.jobs].filter(j => j.inst && (j.id === 'hero' || j.id.startsWith('card-')))
+                       .map(j => j.inst);
+    if (!targets.length) return 0;
+    for (let i = 0; i < n; i++) for (const t of targets) t.step(1/60, i/60);
     return n;
   },
 

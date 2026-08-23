@@ -158,6 +158,7 @@ then, over the whole trail field:
   hint:'Drag on the culture to lead the colony. Hold ⇧ Shift to repel.',
   ref:'<b>Jones, J.</b> (2010) Characteristics of pattern formation and evolution in approximations of Physarum transport networks. <i>Artificial Life</i> 16(2).',
   gl:true,
+  prewarm:320,
   params:[
     {k:'sense',  label:'Sensor spread β', min:5,   max:80,  step:0.5, val:22.5, unit:'°'},
     {k:'turn',   label:'Turn angle α',    min:5,   max:80,  step:0.5, val:45,   unit:'°'},

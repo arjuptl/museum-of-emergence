@@ -40,6 +40,7 @@ The pile has one answer, and knows it.`,
   hint:'Click anywhere to drop a fistful of sand there. Switch to Random rain to build the power law.',
   ref:'<b>Bak, P., Tang, C. & Wiesenfeld, K.</b> (1987) Self-organized criticality: an explanation of 1/f noise. <i>Phys. Rev. Lett.</i> 59(4).',
   gl:false,
+  prewarm:26,
   params:[
     {k:'mode',   label:'Source', options:['Single source','Random rain'], val:0},
     {k:'budget', label:'Topplings / frame', min:10000, max:900000, step:10000, val:140000,

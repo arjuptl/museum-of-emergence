@@ -58,12 +58,14 @@ kbd{
 
 /* ════════════════════════ HERO ════════════════════════ */
 .hero{ position:relative; height:100svh; min-height:560px; overflow:hidden; }
-#hero-canvas{ position:absolute; inset:0; width:100%; height:100%; }
+#hero-canvas{ position:absolute; inset:0; width:100%; height:100%; opacity:.46; }
 .hero-veil{
   position:absolute; inset:0;
   background:
-    radial-gradient(120% 85% at 50% 42%, rgba(8,9,11,.15) 0%, rgba(8,9,11,.72) 52%, rgba(8,9,11,.97) 100%),
-    linear-gradient(to bottom, rgba(8,9,11,.7) 0%, transparent 22%, transparent 62%, var(--ink) 100%);
+    /* a pool of ink directly behind the type, so the wall stays a wall */
+    radial-gradient(56% 44% at 50% 46%, rgba(8,9,11,.88) 0%, rgba(8,9,11,.46) 58%, transparent 100%),
+    radial-gradient(120% 85% at 50% 42%, rgba(8,9,11,.18) 0%, rgba(8,9,11,.70) 52%, rgba(8,9,11,.97) 100%),
+    linear-gradient(to bottom, rgba(8,9,11,.72) 0%, transparent 24%, transparent 58%, var(--ink) 100%);
 }
 .hero-inner{
   position:relative; z-index:2; height:100%;

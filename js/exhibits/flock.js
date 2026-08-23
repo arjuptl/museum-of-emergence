@@ -29,6 +29,7 @@ No boid ever knows how many boids there are.`,
   hint:'Move the pointer to herd them. Hold ⇧ Shift and they scatter like a hawk arrived.',
   ref:'<b>Reynolds, C. W.</b> (1987) Flocks, herds and schools: a distributed behavioral model. <i>SIGGRAPH \'87</i>.',
   gl:false,
+  prewarm:70,
   params:[
     {k:'sep',    label:'Separation', min:0, max:4,   step:0.02, val:1.55, fmt:v=>v.toFixed(2)},
     {k:'ali',    label:'Alignment',  min:0, max:3,   step:0.02, val:1.05, fmt:v=>v.toFixed(2)},

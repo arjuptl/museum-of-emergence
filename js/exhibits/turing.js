@@ -120,6 +120,7 @@ inside 0.01 < f < 0.09,  0.045 < k < 0.07.`,
   hint:'Paint anywhere to inject V. Change the recipe and watch the film re-crystallise.',
   ref:'<b>Turing, A. M.</b> (1952) The chemical basis of morphogenesis. <i>Phil. Trans. R. Soc. B</i> 237. · <b>Pearson, J. E.</b> (1993) Complex patterns in a simple system. <i>Science</i> 261.',
   gl:true,
+  prewarm:150,
   params:[
     {k:'recipe', label:'Recipe', options:RECIPE_NAMES, val:0, onSet:true},
     {k:'feed',  label:'Feed rate f', min:0.010, max:0.090, step:0.0002, val:0.0545, fmt:v=>v.toFixed(4)},

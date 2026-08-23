@@ -42,12 +42,14 @@ and run it downward. Forever.`,
   hint:'Type any rule from 0 to 255. Most are dull. Some are universes.',
   ref:'<b>Wolfram, S.</b> (1983) Statistical mechanics of cellular automata. <i>Rev. Mod. Phys.</i> 55. · <b>Cook, M.</b> (2004) Universality in elementary cellular automata.',
   gl:false,
+  prewarm:80,
   params:[
     {k:'preset', label:'Notable rules', options:NOTABLE.map(r=>r.n + ' — ' + r.why), val:0, onSet:true},
     {k:'rule',  label:'Rule number', min:0, max:255, step:1, val:30},
-    {k:'scale', label:'Cell size', min:1, max:8, step:1, val:2, unit:'px'},
+    {k:'view',  label:'View', options:['Growing triangle','Endless scroll'], val:0},
+    {k:'scale', label:'Cell size', min:1, max:8, step:1, val:3, unit:'px'},
     {k:'rows',  label:'Rows / frame', min:1, max:12, step:1, val:2},
-    {k:'start', label:'Initial row', options:['A single cell','Random noise'], val:0, reseed:true}
+    {k:'start', label:'Initial row', options:['A single cell','Random noise'], val:0}
   ],
 
   create(canvas, opts = {}){
@@ -55,11 +57,11 @@ and run it downward. Forever.`,
     const ctx = canvas.getContext('2d', {alpha:false});
     const dpr = opts.dpr || 1;
 
-    const P = {preset:0, rule:30, scale: preview ? 1 : 2, rows: preview ? 3 : 2, start:0};
+    const P = {preset:0, rule:30, view:0, scale: preview ? 1 : 3, rows: preview ? 3 : 2, start:0};
     if (opts.params) Object.assign(P, opts.params);
 
     let GW, GH, cur, nxt, off, offCtx, rowImg, rowBuf, head, generation, table;
-    let lastScale = -1;
+    let lastScale = -1, filled = 0, hold = 0;
 
     function bits(rule){
       const t = new Uint8Array(8);
@@ -77,7 +79,7 @@ and run it downward. Forever.`,
       offCtx.fillStyle = '#080a0c'; offCtx.fillRect(0, 0, GW, GH);
       rowImg = offCtx.createImageData(GW, 1);
       rowBuf = new Uint32Array(rowImg.data.buffer);
-      head = 0; generation = 0;
+      head = 0; generation = 0; filled = 0; hold = 0;
       lastScale = px;
       if (Math.round(P.start) === 0) cur[GW >> 1] = 1;
       else for (let i = 0; i < GW; i++) cur[i] = Math.random() < 0.5 ? 1 : 0;
@@ -91,7 +93,12 @@ and run it downward. Forever.`,
     function blitRow(){
       for (let i = 0; i < GW; i++) rowBuf[i] = cur[i] ? ON : OFF;
       offCtx.putImageData(rowImg, 0, head);
-      head = (head + 1) % GH;
+      if (Math.round(P.view) === 0){
+        if (head < GH - 1){ head++; filled = head; }
+        else filled = GH;                       // the plate is full: stop writing
+      } else {
+        head = (head + 1) % GH;
+      }
     }
 
     function advance(){
@@ -114,43 +121,71 @@ and run it downward. Forever.`,
       if (px !== lastScale || GW !== Math.max(16, Math.ceil(W/px)) ||
           GH !== Math.max(16, Math.ceil(H/px))) build();
 
+      const triangle = Math.round(P.view) === 0;
       const n = Math.round(P.rows);
-      for (let i = 0; i < n; i++) advance();
+
+      if (triangle && filled >= GH){
+        // Finished plate. Hold it long enough to be read, then run it again.
+        if (++hold > 300) build();
+      } else {
+        for (let i = 0; i < n; i++) advance();
+      }
 
       ctx.fillStyle = '#080a0c'; ctx.fillRect(0, 0, W, H);
       ctx.imageSmoothingEnabled = false;
-      // unroll the ring buffer: the row after `head` is the oldest
-      const below = GH - head;
-      ctx.drawImage(off, 0, head, GW, below,  0, 0,           W, below*px);
-      if (head > 0) ctx.drawImage(off, 0, 0, GW, head, 0, below*px, W, head*px);
+      if (triangle){
+        ctx.drawImage(off, 0, 0, GW, GH, 0, 0, W, GH*px);
+      } else {
+        // unroll the ring buffer: the row after `head` is the oldest
+        const below = GH - head;
+        ctx.drawImage(off, 0, head, GW, below, 0, 0,         W, below*px);
+        if (head > 0) ctx.drawImage(off, 0, 0, GW, head, 0, below*px, W, head*px);
+      }
 
       if (!preview) drawLegend(W, H);
     }
 
     function drawLegend(W, H){
-      const s = 7*dpr, gap = 4*dpr;
-      const cellW = s*3 + gap*3;
-      const bw = cellW*8 + 18*dpr, bh = s*2 + 30*dpr;
-      const x0 = 22*dpr, y0 = H - bh - 22*dpr;
+      const u = 10 * dpr, gap = 4 * dpr;          // u = one cell of a diagram
+      const cellW = u * 3 + gap * 3;
+      const padX = 14 * dpr, padY = 12 * dpr, titleH = 20 * dpr, arrowH = 9 * dpr;
+      const bw = cellW * 8 + padX * 2;
+      const bh = padY * 2 + titleH + u * 2 + arrowH;
+      const bx = 22 * dpr, by = H - bh - 22 * dpr;
+
       ctx.save();
-      ctx.fillStyle = 'rgba(6,7,10,0.72)';
-      ctx.fillRect(x0 - 10*dpr, y0 - 8*dpr, bw, bh);
-      ctx.strokeStyle = 'rgba(233,229,221,0.10)'; ctx.lineWidth = Math.max(1,dpr);
-      ctx.strokeRect(x0 - 10*dpr, y0 - 8*dpr, bw, bh);
-      ctx.fillStyle = 'rgba(233,229,221,0.55)';
-      ctx.font = `${9*dpr}px "IBM Plex Mono", monospace`;
-      ctx.fillText('RULE ' + Math.round(P.rule) + '  =  ' +
-        Math.round(P.rule).toString(2).padStart(8,'0') + '₂   ·   generation ' +
-        generation.toLocaleString(), x0 - 4*dpr, y0 + bh - 16*dpr);
+      ctx.fillStyle = 'rgba(6,8,11,0.90)';
+      ctx.fillRect(bx, by, bw, bh);
+      ctx.strokeStyle = 'rgba(233,229,221,0.16)';
+      ctx.lineWidth = Math.max(1, dpr);
+      ctx.strokeRect(bx + 0.5, by + 0.5, bw - 1, bh - 1);
+
+      const rule = Math.round(P.rule);
+      ctx.textBaseline = 'top';
+      ctx.font = `${10.5 * dpr}px "IBM Plex Mono", monospace`;
+      ctx.textAlign = 'left';
+      ctx.fillStyle = 'rgba(233,229,221,0.82)';
+      ctx.fillText('RULE ' + rule + '  =  ' + rule.toString(2).padStart(8, '0') + '\u2082',
+                   bx + padX, by + padY);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = 'rgba(233,229,221,0.34)';
+      ctx.font = `${9 * dpr}px "IBM Plex Mono", monospace`;
+      ctx.fillText(Math.round(P.view) === 0 && filled >= GH
+                     ? 'PLATE FULL' : 'GEN ' + generation.toLocaleString(),
+                   bx + bw - padX, by + padY + 1.5 * dpr);
+      ctx.textAlign = 'left';
+
+      const topY = by + padY + titleH;
       for (let i = 7; i >= 0; i--){
-        const col = (7 - i) * cellW + x0;
-        for (let b = 0; b < 3; b++){
-          const on = (i >> (2-b)) & 1;
-          ctx.fillStyle = on ? '#e8ded0' : '#1a1d22';
-          ctx.fillRect(col + b*s, y0, s-1*dpr, s-1*dpr);
+        const col = bx + padX + (7 - i) * cellW;
+        for (let b2 = 0; b2 < 3; b2++){                       // the neighbourhood
+          ctx.fillStyle = ((i >> (2 - b2)) & 1) ? '#e8ded0' : '#20242a';
+          ctx.fillRect(col + b2 * u, topY, u - 1.5 * dpr, u - 1.5 * dpr);
         }
-        ctx.fillStyle = table[i] ? '#e8ded0' : '#1a1d22';
-        ctx.fillRect(col + s, y0 + s + 2*dpr, s-1*dpr, s-1*dpr);
+        ctx.fillStyle = 'rgba(233,229,221,0.26)';             // becomes
+        ctx.fillRect(col + u + u * 0.34, topY + u + 1 * dpr, u * 0.3, arrowH - 3 * dpr);
+        ctx.fillStyle = table[i] ? '#e8ded0' : '#20242a';     // the outcome
+        ctx.fillRect(col + u, topY + u + arrowH, u - 1.5 * dpr, u - 1.5 * dpr);
       }
       ctx.restore();
     }
@@ -164,7 +199,7 @@ and run it downward. Forever.`,
           P.rule = rule; table = bits(rule);
           return {rule};
         }
-        const reseed = (k === 'start' && Math.round(v) !== Math.round(P.start));
+        const reseed = ((k === 'start' || k === 'view') && Math.round(v) !== Math.round(P[k]));
         P[k] = v;
         if (k === 'rule') table = bits(Math.round(v));
         if (reseed || k === 'scale') build();
