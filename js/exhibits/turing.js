@@ -84,15 +84,20 @@ void main(){
   outColor = vec4(tonemap(col), 1.0);
 }`;
 
+/* Every pair below was checked by running it and looking at it: each one
+   survives from a cold seed and settles into a visibly different texture.
+   The high-kill corner of the map (mitosis, solitons — f≈0.03, k≈0.065)
+   is genuinely beautiful but will not nucleate from a scattered seed, so
+   it is reachable with the sliders rather than offered as a recipe. */
 const RECIPES = {
-  'Coral':        [0.0545, 0.0620],
-  'Mitosis':      [0.0367, 0.0649],
-  'Solitons':     [0.0300, 0.0620],
-  'Worms':        [0.0780, 0.0610],
-  'Spots':        [0.0350, 0.0650],
-  'Labyrinth':    [0.0290, 0.0570],
-  'Pulsing waves':[0.0250, 0.0600],
-  'Fingerprint':  [0.0370, 0.0600]
+  'Coral':       [0.0545, 0.0620],   // growth fronts eating into open water
+  'Spots':       [0.0140, 0.0500],   // discrete dots, the classic leopard case
+  'Lichen':      [0.0180, 0.0480],   // granular, crusty, irregular
+  'Coarse maze': [0.0240, 0.0525],   // wide corridors
+  'Labyrinth':   [0.0290, 0.0570],   // fine even maze
+  'Fingerprint': [0.0370, 0.0600],   // rounded whorls
+  'Worms':       [0.0460, 0.0594],   // long loops, few junctions
+  'U-skate':     [0.0620, 0.0609]    // dense, with drifting voids
 };
 const RECIPE_NAMES = Object.keys(RECIPES);
 
@@ -103,7 +108,7 @@ export default {
   attr:'Alan Turing 1952 · Gray & Scott 1984 · John Pearson 1993',
   accent:'#7fbfa4',
   desc:'Two chemicals, one of which eats the other and multiplies by eating. Spots, stripes, mitosis — the printing plate for animal skin.',
-  text:`In 1952 — two years before his death, and long before anyone could compute the answer — Alan Turing published <em>The Chemical Basis of Morphogenesis</em>. Its claim was outrageous: that the spots on a leopard and the stripes on a fish require no map and no blueprint. Two substances diffusing at different speeds, one activating and one inhibiting, will spontaneously break their own symmetry and print a pattern.<br><br>What you are watching is the Gray–Scott system, the cleanest known instance. Chemical <em>U</em> is fed in everywhere. Chemical <em>V</em> converts U into more V, then is drained away. That's the entire chemistry: <b>U + 2V → 3V</b>.<br><br>Two numbers govern it — the <em>feed</em> and the <em>kill</em> rate — and the map of their possible values is one of the richest small parameter spaces in science. Move a thousandth of a unit and self-replicating blobs become writhing worms become a fingerprint. Nothing else changes. Only two numbers.`,
+  text:`In 1952 — two years before his death, and long before anyone could compute the answer — Alan Turing published <em>The Chemical Basis of Morphogenesis</em>. Its claim was outrageous: that the spots on a leopard and the stripes on a fish require no map and no blueprint. Two substances diffusing at different speeds, one activating and one inhibiting, will spontaneously break their own symmetry and print a pattern.<br><br>What you are watching is the Gray–Scott system, the cleanest known instance. Chemical <em>U</em> is fed in everywhere. Chemical <em>V</em> converts U into more V, then is drained away. That's the entire chemistry: <b>U + 2V → 3V</b>.<br><br>Two numbers govern it — the <em>feed</em> and the <em>kill</em> rate — and the map of their possible values is one of the richest small parameter spaces in science. A few thousandths in either direction turns discrete spots into a crust, a crust into wide corridors, corridors into a fingerprint, a fingerprint into long drifting worms. Nothing else changes. Only two numbers.<br><br>The recipes in the panel are the ones that will start from nothing and grow. There is a further region — around <em>f</em>≈0.03, <em>k</em>≈0.065 — where blobs divide like cells, but it will not ignite from a cold plate: you have to walk the sliders into it from a pattern that is already alive. Try it. Paint some V, set the recipe to Coral, then ease the kill rate up.`,
   code:`U + 2V → 3V        (V catalyses its own production)
       V → P          (V decays away)
 
@@ -148,17 +153,26 @@ inside 0.01 < f < 0.09,  0.045 < k < 0.07.`,
 
     function seed(){
       const data = new Float32Array(GW * GH * 4);
-      for (let i = 0; i < GW*GH; i++){ data[i*4] = 1; data[i*4+1] = 0; }
-      // a scatter of inoculation sites
-      const sites = preview ? 9 : 22;
+      // U saturated everywhere, with a whisper of noise to break symmetry
+      for (let i = 0; i < GW*GH; i++){
+        data[i*4] = 1 - Math.random()*0.02;
+        data[i*4+1] = 0;
+      }
+      // Inoculation sites at the canonical U≈0.5, V≈0.25. Seeding V much
+      // higher makes it consume the local U and then starve, which kills the
+      // low-feed recipes outright. Patches also need to be comfortably wider
+      // than one pattern wavelength or they collapse before they can spread.
+      const sites = preview ? 14 : 34;
+      const rmin = preview ? 5 : 9, rvar = preview ? 6 : 13;
       for (let s = 0; s < sites; s++){
-        const cx = Math.random()*GW, cy = Math.random()*GH, rad = 3 + Math.random()*7;
+        const cx = Math.random()*GW, cy = Math.random()*GH;
+        const rad = rmin + Math.random()*rvar;
         for (let y = Math.max(0,(cy-rad)|0); y < Math.min(GH,cy+rad); y++)
           for (let x = Math.max(0,(cx-rad)|0); x < Math.min(GW,cx+rad); x++){
             if ((x-cx)**2 + (y-cy)**2 < rad*rad){
               const i = (y*GW + x) * 4;
-              data[i] = 0.35 + Math.random()*0.2;
-              data[i+1] = 0.55 + Math.random()*0.3;
+              data[i]   = 0.50 + (Math.random()-0.5)*0.10;
+              data[i+1] = 0.25 + (Math.random()-0.5)*0.10;
             }
           }
       }
