@@ -1,0 +1,33 @@
+{
+  "_help": [
+    "One entry per search. Tesla's inventory endpoint is queried once per entry.",
+    "model: my | m3 | ms | mx | ct      condition: new | used",
+    "zip + region: the search centre.  range_miles: Tesla accepts up to 200; 0 = nationwide.",
+    "trim_keywords: a car matches if its trim name contains ANY of these (case-insensitive).",
+    "exclude_keywords: ...and NONE of these.  Use it to drop Performance, Standard, etc.",
+    "trim_codes: optional exact Tesla option codes to filter server-side (e.g. [\"LRRWD\"]).",
+    "max_price: optional ceiling in dollars."
+  ],
+  "searches": [
+    {
+      "label": "Model Y Premium RWD — Allen TX (Dallas)",
+      "model": "my",
+      "condition": "new",
+      "zip": "75013",
+      "region": "TX",
+      "range_miles": 200,
+      "trim_keywords": ["Premium Rear-Wheel Drive", "Long Range Rear-Wheel Drive"],
+      "exclude_keywords": ["Performance", "Standard"]
+    },
+    {
+      "label": "Model Y AWD — Chicago IL",
+      "model": "my",
+      "condition": "new",
+      "zip": "60601",
+      "region": "IL",
+      "range_miles": 200,
+      "trim_keywords": ["All-Wheel Drive"],
+      "exclude_keywords": ["Standard"]
+    }
+  ]
+}
